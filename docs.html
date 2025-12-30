@@ -35,18 +35,33 @@
 
         .table-row:nth-child(even) { background-color: rgba(255,255,255,0.02); }
         
-        /* Mobile Menu */
-        #docs-menu { transition: transform 0.3s ease-in-out; transform: translateX(-100%); }
-        #docs-menu.open { transform: translateX(0); }
+        /* Accordion Styles */
+        .accordion-content {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .accordion-content.active { opacity: 1; }
+        .accordion-icon { transition: transform 0.3s ease; }
+        .accordion-btn[aria-expanded="true"] .accordion-icon { transform: rotate(180deg); }
 
-        .cmd-alias {
+        /* Alias Tag */
+        .alias-tag {
+            font-size: 0.75rem;
             background: rgba(52, 152, 219, 0.1);
             color: #3498db;
             padding: 2px 6px;
             border-radius: 4px;
-            font-size: 0.75rem;
             font-family: 'JetBrains Mono', monospace;
+            margin-right: 4px;
+            display: inline-block;
+            margin-top: 4px;
         }
+
+        /* Mobile Menu */
+        #docs-menu { transition: transform 0.3s ease-in-out; transform: translateX(-100%); }
+        #docs-menu.open { transform: translateX(0); }
     </style>
     
     <script>
@@ -57,7 +72,8 @@
                         control: '#e74c3c', // Red
                         bans: '#3498db',    // Blue
                         dark: '#0f0f0f',
-                        darker: '#080808'
+                        darker: '#080808',
+                        surface: '#18181b'
                     }
                 }
             }
@@ -97,20 +113,20 @@
                 </ul>
             </div>
             <div class="px-6 mb-8">
-                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Commands</p>
+                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Command Reference</p>
                 <ul class="space-y-3">
                     <li><a href="#std-punishments" class="flex items-center gap-2 text-gray-300 hover:text-white hover:translate-x-1 transition"><i class="fa-solid fa-gavel w-5 text-center text-control"></i> Standard</a></li>
                     <li><a href="#creative-punishments" class="flex items-center gap-2 text-gray-300 hover:text-white hover:translate-x-1 transition"><i class="fa-solid fa-wand-magic-sparkles w-5 text-center text-purple-400"></i> Creative & AI</a></li>
-                    <li><a href="#chat-commands" class="flex items-center gap-2 text-gray-300 hover:text-white hover:translate-x-1 transition"><i class="fa-solid fa-comments w-5 text-center text-blue-400"></i> Chat Mgmt</a></li>
+                    <li><a href="#chat-commands" class="flex items-center gap-2 text-gray-300 hover:text-white hover:translate-x-1 transition"><i class="fa-solid fa-comments w-5 text-center text-blue-400"></i> Chat</a></li>
                     <li><a href="#utils" class="flex items-center gap-2 text-gray-300 hover:text-white hover:translate-x-1 transition"><i class="fa-solid fa-toolbox w-5 text-center text-yellow-500"></i> Utilities</a></li>
                     <li><a href="#admin" class="flex items-center gap-2 text-gray-300 hover:text-white hover:translate-x-1 transition"><i class="fa-solid fa-shield-halved w-5 text-center text-red-500"></i> Admin System</a></li>
                 </ul>
             </div>
             <div class="px-6 mb-8">
-                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Configuration</p>
+                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Config & Help</p>
                 <ul class="space-y-3">
-                    <li><a href="#main-config" class="flex items-center gap-2 text-gray-300 hover:text-white hover:translate-x-1 transition"><i class="fa-solid fa-gear w-5 text-center text-gray-400"></i> config.yml</a></li>
-                    <li><a href="#ai-config" class="flex items-center gap-2 text-gray-300 hover:text-white hover:translate-x-1 transition"><i class="fa-solid fa-robot w-5 text-center text-purple-400"></i> AI & Voice</a></li>
+                    <li><a href="#main-config" class="flex items-center gap-2 text-gray-300 hover:text-white hover:translate-x-1 transition"><i class="fa-solid fa-gear w-5 text-center text-gray-400"></i> Config Files</a></li>
+                    <li><a href="#faq" class="flex items-center gap-2 text-gray-300 hover:text-white hover:translate-x-1 transition"><i class="fa-solid fa-circle-question w-5 text-center text-white"></i> F.A.Q.</a></li>
                 </ul>
             </div>
         </aside>
@@ -125,7 +141,7 @@
                     <a href="#migration" class="mobile-link block py-2 text-gray-300">Migration</a>
                 </div>
                 <div>
-                    <p class="text-xs font-bold text-gray-500 uppercase mb-4">Command Reference</p>
+                    <p class="text-xs font-bold text-gray-500 uppercase mb-4">Commands</p>
                     <a href="#std-punishments" class="mobile-link block py-2 text-gray-300">Standard Punishments</a>
                     <a href="#creative-punishments" class="mobile-link block py-2 text-gray-300">Creative & AI</a>
                     <a href="#chat-commands" class="mobile-link block py-2 text-gray-300">Chat Management</a>
@@ -133,9 +149,9 @@
                     <a href="#admin" class="mobile-link block py-2 text-gray-300">Admin System</a>
                 </div>
                 <div>
-                    <p class="text-xs font-bold text-gray-500 uppercase mb-4">Configuration</p>
-                    <a href="#main-config" class="mobile-link block py-2 text-gray-300">config.yml</a>
-                    <a href="#ai-config" class="mobile-link block py-2 text-gray-300">AI Setup</a>
+                    <p class="text-xs font-bold text-gray-500 uppercase mb-4">Config & Help</p>
+                    <a href="#main-config" class="mobile-link block py-2 text-gray-300">Configuration</a>
+                    <a href="#faq" class="mobile-link block py-2 text-gray-300">FAQ</a>
                 </div>
             </div>
         </aside>
@@ -146,127 +162,122 @@
             <!-- Installation -->
             <section id="installation" class="mb-20">
                 <h1 class="text-4xl font-bold text-white mb-6 border-b border-gray-800 pb-4">Installation</h1>
-                <div class="bg-gray-800/30 border border-gray-700 rounded-xl p-8">
+                <div class="bg-surface border border-gray-700 rounded-xl p-8">
                     <ol class="list-decimal list-inside space-y-4 text-gray-300">
                         <li>Download the plugin from <a href="#" class="text-bans hover:underline">BuiltByBit</a> or <a href="#" class="text-bans hover:underline">Modrinth</a>.</li>
-                        <li>Place the jar in your <code class="bg-black/30 px-2 py-1 rounded text-red-400">/plugins</code> folder.</li>
+                        <li>Place the jar in your <code class="bg-black/30 px-2 py-1 rounded text-control">/plugins</code> folder.</li>
                         <li>Restart your server to generate configuration files.</li>
                         <li>(Optional) Install <strong>DiscordSRV</strong> for Discord logs and <strong>SimpleVoiceChat</strong> for AI Voice Moderation.</li>
                     </ol>
-                    <div class="mt-6 p-4 bg-blue-900/20 border border-blue-800/50 rounded-lg">
+                    <div class="mt-6 p-4 bg-blue-900/10 border border-blue-800/50 rounded-lg">
                         <strong class="text-blue-300 block mb-1">Network Setup (Bungee/Velocity)</strong>
-                        <p class="text-sm text-blue-200">Install <strong>ControlBans-Bridge.jar</strong> on your proxy and the main plugin on all backend servers for cross-server sync.</p>
+                        <p class="text-sm text-blue-200">Install <strong>ControlBans-Bridge.jar</strong> on your proxy and the main plugin on all backend servers. Ensure Redis is enabled in <code class="text-white">config.yml</code>.</p>
                     </div>
                 </div>
             </section>
 
             <!-- Migration -->
-            <section id="migration" class="mb-20">
+            <section id="migration" class="mb-20 scroll-mt-28">
                 <h2 class="text-3xl font-bold text-white mb-6">Migration</h2>
-                <p class="text-gray-400 mb-4">Migrate from other plugins with a single command. Ensure both plugins are installed.</p>
+                <p class="text-gray-400 mb-4">Migrate from other plugins with a single command. Ensure both plugins are installed and running.</p>
                 <div class="bg-black/50 p-4 rounded-lg border border-gray-700 font-mono text-sm text-green-400">
-                    /controlbans import <span class="text-gray-500">&lt;litebans|essentials|advancedban|file&gt;</span>
+                    /controlbans import <span class="text-gray-500">&lt;litebans|essentials|advancedban&gt;</span>
                 </div>
             </section>
 
-            <div class="p-4 mb-8 bg-gray-900/50 border border-gray-800 rounded-lg text-sm text-gray-400 flex items-center gap-3">
-                <i class="fa-solid fa-circle-info text-bans"></i>
-                <span><strong>Pro Tip:</strong> Add <code class="text-control bg-black/30 px-1 rounded">-s</code> to the end of any punishment command to execute it silently (e.g. <code class="text-white">/ban Notch -s</code>).</span>
-            </div>
-
-            <!-- Standard Punishments -->
-            <section id="std-punishments" class="mb-20">
+            <!-- STANDARD PUNISHMENTS -->
+            <section id="std-punishments" class="mb-20 scroll-mt-28">
                 <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-                    <span class="w-2 h-8 bg-control rounded-full"></span> Standard Punishments
+                    <span class="w-1.5 h-8 bg-control rounded-full"></span> Standard Punishments
                 </h2>
                 
                 <div class="overflow-x-auto rounded-xl border border-gray-700 shadow-xl">
-                    <table class="w-full text-left border-collapse min-w-[700px]">
+                    <table class="w-full text-left border-collapse min-w-[800px]">
                         <thead class="bg-gray-800 text-gray-400 text-xs uppercase tracking-wider">
                             <tr>
-                                <th class="p-4 border-b border-gray-700 w-1/3">Command & Aliases</th>
-                                <th class="p-4 border-b border-gray-700 w-1/4">Permission</th>
-                                <th class="p-4 border-b border-gray-700">Description</th>
+                                <th class="p-4 w-1/3">Command / Usage</th>
+                                <th class="p-4 w-1/4">Permission</th>
+                                <th class="p-4">Description</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-800 bg-gray-900/50">
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                        <tbody class="divide-y divide-gray-800 bg-surface">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/ban &lt;player&gt; [reason]</div>
-                                    <span class="cmd-alias">/b</span>
+                                    <span class="alias-tag">/b</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.ban</td>
-                                <td class="p-4 text-sm">Permanently ban a player from the server.</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.ban</td>
+                                <td class="p-4 text-sm">Permanently ban a player. Add <code class="text-control">-s</code> for silent.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/tempban &lt;player&gt; &lt;time&gt; [reason]</div>
-                                    <span class="cmd-alias">/tban</span> <span class="cmd-alias">/tb</span>
+                                    <span class="alias-tag">/tban</span> <span class="alias-tag">/tb</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.tempban</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.tempban</td>
                                 <td class="p-4 text-sm">Temporarily ban a player (e.g. <code class="text-yellow-400">1d12h</code>).</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/unban &lt;player|ip&gt;</div>
-                                    <span class="cmd-alias">/pardon</span>
+                                    <span class="alias-tag">/pardon</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.unban</td>
-                                <td class="p-4 text-sm">Remove a ban from a player or IP address.</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.unban</td>
+                                <td class="p-4 text-sm">Remove a ban from a player or IP.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/mute &lt;player&gt; [reason]</div>
-                                    <span class="cmd-alias">/m</span>
+                                    <span class="alias-tag">/m</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.mute</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.mute</td>
                                 <td class="p-4 text-sm">Permanently mute a player in chat.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/tempmute &lt;player&gt; &lt;time&gt; [reason]</div>
-                                    <span class="cmd-alias">/tmute</span> <span class="cmd-alias">/tm</span>
+                                    <span class="alias-tag">/tmute</span> <span class="alias-tag">/tm</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.tempmute</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.tempmute</td>
                                 <td class="p-4 text-sm">Temporarily mute a player in chat.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/unmute &lt;player&gt;</div>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.unmute</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.unmute</td>
                                 <td class="p-4 text-sm">Restore chat privileges.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/ipban &lt;player|ip&gt; [reason]</div>
-                                    <span class="cmd-alias">/iban</span>
+                                    <span class="alias-tag">/iban</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.ban.ip</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.ban.ip</td>
                                 <td class="p-4 text-sm">Ban all accounts connecting from this IP.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/ipmute &lt;player|ip&gt; [reason]</div>
-                                    <span class="cmd-alias">/imute</span>
+                                    <span class="alias-tag">/imute</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.mute.ip</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.mute.ip</td>
                                 <td class="p-4 text-sm">Mute all accounts connecting from this IP.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/kick &lt;player&gt; [reason]</div>
-                                    <span class="cmd-alias">/k</span>
+                                    <span class="alias-tag">/k</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.kick</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.kick</td>
                                 <td class="p-4 text-sm">Disconnect a player from the server.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/warn &lt;player&gt; [reason]</div>
-                                    <span class="cmd-alias">/w</span>
+                                    <span class="alias-tag">/w</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.warn</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.warn</td>
                                 <td class="p-4 text-sm">Send a formal warning to a player.</td>
                             </tr>
                         </tbody>
@@ -274,116 +285,116 @@
                 </div>
             </section>
 
-            <!-- Creative & AI -->
-            <section id="creative-punishments" class="mb-20">
+            <!-- CREATIVE & VOICE -->
+            <section id="creative-punishments" class="mb-20 scroll-mt-28">
                 <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-                    <span class="w-2 h-8 bg-purple-500 rounded-full"></span> Creative & Voice
+                    <span class="w-1.5 h-8 bg-purple-500 rounded-full"></span> Creative & Voice
                 </h2>
                 
                 <div class="overflow-x-auto rounded-xl border border-gray-700 shadow-xl">
-                    <table class="w-full text-left border-collapse min-w-[700px]">
+                    <table class="w-full text-left border-collapse min-w-[800px]">
                         <thead class="bg-gray-800 text-gray-400 text-xs uppercase tracking-wider">
                             <tr>
-                                <th class="p-4 border-b border-gray-700 w-1/3">Command & Aliases</th>
-                                <th class="p-4 border-b border-gray-700 w-1/4">Permission</th>
-                                <th class="p-4 border-b border-gray-700">Description</th>
+                                <th class="p-4 w-1/3">Command / Usage</th>
+                                <th class="p-4 w-1/4">Permission</th>
+                                <th class="p-4">Description</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-800 bg-gray-900/50">
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                        <tbody class="divide-y divide-gray-800 bg-surface">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/voicemute &lt;player&gt; [reason]</div>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.voicemute</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.voicemute</td>
                                 <td class="p-4 text-sm">Mutes a player in SimpleVoiceChat only.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/voiceunmute &lt;player&gt;</div>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.voiceunmute</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.voiceunmute</td>
                                 <td class="p-4 text-sm">Restores voice chat privileges.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/voidjail &lt;player&gt;</div>
-                                    <span class="cmd-alias">/vjail</span>
+                                    <span class="alias-tag">/vjail</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.voidjail</td>
-                                <td class="p-4 text-sm">Traps player in an inescapable void box (Set loc in config).</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.voidjail</td>
+                                <td class="p-4 text-sm">Traps player in an inescapable void box.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/unvoidjail &lt;player&gt;</div>
-                                    <span class="cmd-alias">/unvjail</span>
+                                    <span class="alias-tag">/unvjail</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.voidjail</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.voidjail</td>
                                 <td class="p-4 text-sm">Releases a player from the void jail.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/banskin &lt;player&gt;</div>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.banskin</td>
-                                <td class="p-4 text-sm">Forcibly sets a player's skin to Steve/Alex.</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.banskin</td>
+                                <td class="p-4 text-sm">Forcibly sets a player's skin to Default.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/unbanskin &lt;player&gt;</div>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.banskin</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.banskin</td>
                                 <td class="p-4 text-sm">Restores a player's original skin.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/freeze &lt;player&gt;</div>
-                                    <span class="cmd-alias">/ss</span>
+                                    <span class="alias-tag">/ss</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.freeze</td>
-                                <td class="p-4 text-sm">Freezes/Unfreezes a player for SS/Inspection.</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.freeze</td>
+                                <td class="p-4 text-sm">Freezes/Unfreezes a player for Inspection.</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
 
-            <!-- Chat Management -->
-            <section id="chat-commands" class="mb-20">
+            <!-- CHAT COMMANDS -->
+            <section id="chat-commands" class="mb-20 scroll-mt-28">
                 <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-                    <span class="w-2 h-8 bg-blue-500 rounded-full"></span> Chat Management
+                    <span class="w-1.5 h-8 bg-blue-500 rounded-full"></span> Chat Management
                 </h2>
                 <div class="overflow-x-auto rounded-xl border border-gray-700 shadow-xl">
-                    <table class="w-full text-left border-collapse min-w-[700px]">
+                    <table class="w-full text-left border-collapse min-w-[800px]">
                         <thead class="bg-gray-800 text-gray-400 text-xs uppercase tracking-wider">
                             <tr>
-                                <th class="p-4 border-b border-gray-700 w-1/3">Command & Aliases</th>
-                                <th class="p-4 border-b border-gray-700 w-1/4">Permission</th>
-                                <th class="p-4 border-b border-gray-700">Description</th>
+                                <th class="p-4 w-1/3">Command / Usage</th>
+                                <th class="p-4 w-1/4">Permission</th>
+                                <th class="p-4">Description</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-800 bg-gray-900/50">
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                        <tbody class="divide-y divide-gray-800 bg-surface">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/chat lock</div>
-                                    <span class="cmd-alias">/cchat lock</span>
+                                    <span class="alias-tag">/cchat lock</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.chat</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.chat</td>
                                 <td class="p-4 text-sm">Toggles global chat lock. Only staff can talk.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/chat slow &lt;seconds&gt;</div>
-                                    <span class="cmd-alias">/cchat slow</span>
+                                    <span class="alias-tag">/cchat slow</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.chat</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.chat</td>
                                 <td class="p-4 text-sm">Sets a cooldown between messages (0 to disable).</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/chat clear</div>
-                                    <span class="cmd-alias">/cchat clear</span>
+                                    <span class="alias-tag">/cchat clear</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.chat</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.chat</td>
                                 <td class="p-4 text-sm">Clears the chat for all players.</td>
                             </tr>
                         </tbody>
@@ -391,59 +402,59 @@
                 </div>
             </section>
 
-            <!-- Utils -->
-            <section id="utils" class="mb-20">
+            <!-- UTILITIES -->
+            <section id="utils" class="mb-20 scroll-mt-28">
                 <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-                    <span class="w-2 h-8 bg-yellow-500 rounded-full"></span> Utilities
+                    <span class="w-1.5 h-8 bg-yellow-500 rounded-full"></span> Utilities
                 </h2>
                 
                 <div class="overflow-x-auto rounded-xl border border-gray-700 shadow-xl">
-                    <table class="w-full text-left border-collapse min-w-[700px]">
+                    <table class="w-full text-left border-collapse min-w-[800px]">
                         <thead class="bg-gray-800 text-gray-400 text-xs uppercase tracking-wider">
                             <tr>
-                                <th class="p-4 border-b border-gray-700 w-1/3">Command & Aliases</th>
-                                <th class="p-4 border-b border-gray-700 w-1/4">Permission</th>
-                                <th class="p-4 border-b border-gray-700">Description</th>
+                                <th class="p-4 w-1/3">Command / Usage</th>
+                                <th class="p-4 w-1/4">Permission</th>
+                                <th class="p-4">Description</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-800 bg-gray-900/50">
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                        <tbody class="divide-y divide-gray-800 bg-surface">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/history &lt;player&gt;</div>
-                                    <span class="cmd-alias">/h</span> <span class="cmd-alias">/punishments</span>
+                                    <span class="alias-tag">/h</span> <span class="alias-tag">/punishments</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.history</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.history</td>
                                 <td class="p-4 text-sm">Opens a GUI showing past punishments.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/check &lt;player|id&gt;</div>
-                                    <span class="cmd-alias">/c</span>
+                                    <span class="alias-tag">/c</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.check</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.check</td>
                                 <td class="p-4 text-sm">Check active punishments for a player or punishment ID.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/alts &lt;player&gt;</div>
-                                    <span class="cmd-alias">/alt</span>
+                                    <span class="alias-tag">/alt</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.alts</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.alts</td>
                                 <td class="p-4 text-sm">Scans for accounts sharing the same IP.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/punish &lt;player&gt;</div>
-                                    <span class="cmd-alias">/p</span> <span class="cmd-alias">/gui</span>
+                                    <span class="alias-tag">/p</span> <span class="alias-tag">/gui</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.punish</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.punish</td>
                                 <td class="p-4 text-sm">Opens the Punishment GUI for easy moderation.</td>
                             </tr>
-                             <tr class="table-row hover:bg-gray-800/50 transition">
+                             <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/appeal &lt;message&gt;</div>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.appeal</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.appeal</td>
                                 <td class="p-4 text-sm">Allows a muted player to submit an appeal.</td>
                             </tr>
                         </tbody>
@@ -451,68 +462,69 @@
                 </div>
             </section>
 
-            <!-- Admin & System -->
-            <section id="admin" class="mb-20">
+            <!-- ADMIN & SYSTEM -->
+            <section id="admin" class="mb-20 scroll-mt-28">
                 <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-                    <span class="w-2 h-8 bg-red-500 rounded-full"></span> Admin & System
+                    <span class="w-1.5 h-8 bg-red-500 rounded-full"></span> Admin & System
                 </h2>
                 
-                <div class="overflow-x-auto rounded-xl border border-gray-700 shadow-xl">
-                    <table class="w-full text-left border-collapse min-w-[700px]">
+                <div class="overflow-x-auto rounded-xl border border-gray-700 shadow-xl mb-8">
+                    <table class="w-full text-left border-collapse min-w-[800px]">
                         <thead class="bg-gray-800 text-gray-400 text-xs uppercase tracking-wider">
                             <tr>
-                                <th class="p-4 border-b border-gray-700 w-1/3">Command & Aliases</th>
-                                <th class="p-4 border-b border-gray-700 w-1/4">Permission</th>
-                                <th class="p-4 border-b border-gray-700">Description</th>
+                                <th class="p-4 w-1/3">Command / Usage</th>
+                                <th class="p-4 w-1/4">Permission</th>
+                                <th class="p-4">Description</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-800 bg-gray-900/50">
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                        <tbody class="divide-y divide-gray-800 bg-surface">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/controlbans reload</div>
-                                    <span class="cmd-alias">/cb reload</span>
+                                    <span class="alias-tag">/cb reload</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.admin</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.admin</td>
                                 <td class="p-4 text-sm">Reloads configuration and locale files.</td>
                             </tr>
-                             <tr class="table-row hover:bg-gray-800/50 transition">
+                             <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/controlbans import</div>
-                                    <span class="cmd-alias">/cb import</span>
+                                    <span class="alias-tag">/cb import</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.import</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.import</td>
                                 <td class="p-4 text-sm">Import from LiteBans, Essentials, or AdvancedBan.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/controlbans export</div>
-                                    <span class="cmd-alias">/cb export</span>
+                                    <span class="alias-tag">/cb export</span>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.admin.export</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.admin.export</td>
                                 <td class="p-4 text-sm">Exports punishment data to JSON format.</td>
                             </tr>
-                            <tr class="table-row hover:bg-gray-800/50 transition">
+                            <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/controlbans database clear</div>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.database</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.database</td>
                                 <td class="p-4 text-sm">Wipes the entire database or specific player data.</td>
                             </tr>
-                             <tr class="table-row hover:bg-gray-800/50 transition">
+                             <tr class="table-row">
                                 <td class="p-4">
                                     <div class="font-mono text-white text-sm mb-1">/controlbans settings</div>
                                 </td>
-                                <td class="p-4 text-sm text-gray-400">controlbans.admin</td>
+                                <td class="p-4 text-sm font-mono text-gray-400">controlbans.admin</td>
                                 <td class="p-4 text-sm">Opens the in-game configuration GUI.</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <div class="mt-8 overflow-x-auto rounded-xl border border-gray-700 shadow-xl">
-                    <div class="bg-gray-800 p-4 border-b border-gray-700 font-bold text-gray-300">Other Permissions</div>
+                <h3 class="text-xl font-bold text-gray-300 mb-4">Additional Permissions</h3>
+                <div class="overflow-x-auto rounded-xl border border-gray-700 shadow-xl">
                     <table class="w-full text-left border-collapse min-w-[600px]">
-                        <tbody class="divide-y divide-gray-800 bg-gray-900/50">
+                        <tbody class="divide-y divide-gray-800 bg-surface">
+                            <tr class="table-row"><td class="p-4 font-mono text-sm text-white">controlbans.*</td><td class="p-4 text-sm text-gray-400">Wildcard for all permissions.</td></tr>
                             <tr class="table-row"><td class="p-4 font-mono text-sm text-white">controlbans.notify.silent</td><td class="p-4 text-sm text-gray-400">See broadcast messages for silent punishments.</td></tr>
                             <tr class="table-row"><td class="p-4 font-mono text-sm text-white">controlbans.exempt.*</td><td class="p-4 text-sm text-gray-400">Exempt from bans, mutes, kicks, etc.</td></tr>
                             <tr class="table-row"><td class="p-4 font-mono text-sm text-white">controlbans.bypass.chat</td><td class="p-4 text-sm text-gray-400">Talk when chat is locked or slowed.</td></tr>
@@ -522,64 +534,122 @@
             </section>
 
             <!-- Main Config -->
-            <section id="main-config" class="mb-20">
+            <section id="main-config" class="mb-20 scroll-mt-28">
                 <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-                    <span class="w-2 h-8 bg-bans rounded-full"></span> Main Configuration
+                    <span class="w-1.5 h-8 bg-bans rounded-full"></span> Main Configuration
                 </h2>
                 <p class="text-gray-400 mb-4">Key settings from <code class="text-yellow-400 bg-gray-800 px-1 rounded">config.yml</code>.</p>
-                <div class="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden relative shadow-2xl">
-                    <div class="absolute top-0 right-0 bg-gray-800 px-3 py-1 text-xs text-gray-400 rounded-bl-lg border-b border-l border-gray-700 font-mono">config.yml</div>
-                    <pre class="p-6 overflow-x-auto text-xs md:text-sm leading-relaxed"><code class="language-yaml"><span class="text-pink-400">database:</span>
+                <div class="bg-surface border border-gray-700 rounded-xl overflow-hidden relative shadow-2xl">
+                    <pre class="p-6 overflow-x-auto text-xs md:text-sm leading-relaxed"><code class="language-yaml"><span class="text-control">database:</span>
   <span class="text-gray-500"># Options: mysql, mariadb, postgresql, sqlite, h2, mongodb</span>
-  <span class="text-blue-300">type:</span> <span class="text-yellow-300">sqlite</span>
-  
-<span class="text-pink-400">redis:</span>
-  <span class="text-blue-300">enabled:</span> <span class="text-green-400">false</span> <span class="text-gray-500"># Set true for cross-server sync</span>
-  <span class="text-blue-300">host:</span> <span class="text-yellow-300">localhost</span>
-  <span class="text-blue-300">port:</span> <span class="text-green-400">6379</span>
+  <span class="text-bans">type:</span> <span class="text-yellow-400">sqlite</span>
 
-<span class="text-pink-400">web:</span>
-  <span class="text-blue-300">enabled:</span> <span class="text-green-400">true</span>
-  <span class="text-blue-300">port:</span> <span class="text-green-400">8080</span>
-  <span class="text-blue-300">admin-token:</span> <span class="text-yellow-300">"change-me"</span>
+<span class="text-control">redis:</span>
+  <span class="text-bans">enabled:</span> <span class="text-green-400">false</span> <span class="text-gray-500"># Set to true for networks</span>
+  <span class="text-bans">host:</span> <span class="text-yellow-400">localhost</span>
+  <span class="text-bans">port:</span> <span class="text-green-400">6379</span>
 
-<span class="text-pink-400">integrations:</span>
-  <span class="text-pink-400">discord:</span>
-    <span class="text-blue-300">enabled:</span> <span class="text-green-400">true</span>
+<span class="text-control">web:</span>
+  <span class="text-bans">enabled:</span> <span class="text-green-400">true</span>
+  <span class="text-bans">port:</span> <span class="text-green-400">8080</span>
+  <span class="text-bans">admin-token:</span> <span class="text-yellow-400">"change-me-please"</span>
+
+<span class="text-control">integrations:</span>
+  <span class="text-control">discord:</span>
+    <span class="text-bans">enabled:</span> <span class="text-green-400">true</span>
     <span class="text-gray-500"># Send embeds via DiscordSRV</span>
-    <span class="text-blue-300">channel-id:</span> <span class="text-yellow-300">"123456789"</span>
+    <span class="text-bans">channel-id:</span> <span class="text-yellow-400">"123456789"</span>
     
-<span class="text-pink-400">void-jail:</span>
-  <span class="text-pink-400">location:</span>
-    <span class="text-blue-300">world:</span> <span class="text-yellow-300">"world"</span>
-    <span class="text-blue-300">x:</span> <span class="text-green-400">0.5</span>
-    <span class="text-blue-300">y:</span> <span class="text-green-400">-1000.0</span> <span class="text-gray-500"># Far below the world</span>
-    <span class="text-blue-300">z:</span> <span class="text-green-400">0.5</span></code></pre>
+<span class="text-control">void-jail:</span>
+  <span class="text-control">location:</span>
+    <span class="text-bans">world:</span> <span class="text-yellow-400">"world"</span>
+    <span class="text-bans">x:</span> <span class="text-green-400">0.5</span>
+    <span class="text-bans">y:</span> <span class="text-green-400">-1000.0</span>
+    <span class="text-bans">z:</span> <span class="text-green-400">0.5</span></code></pre>
                 </div>
             </section>
 
             <!-- AI Config -->
-            <section id="ai-config" class="mb-20">
+            <section id="ai-config" class="mb-20 scroll-mt-28">
                 <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-                    <span class="w-2 h-8 bg-purple-500 rounded-full"></span> AI & Voice Config
+                    <span class="w-1.5 h-8 bg-purple-500 rounded-full"></span> AI & Voice Config
                 </h2>
                 <p class="text-gray-400 mb-4">Settings for AI moderation in <code class="text-yellow-400 bg-gray-800 px-1 rounded">ai-config.yml</code>.</p>
-                <div class="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden relative shadow-2xl">
-                    <pre class="p-6 overflow-x-auto text-xs md:text-sm leading-relaxed"><code class="language-yaml"><span class="text-pink-400">ai-moderation:</span>
-  <span class="text-blue-300">enabled:</span> <span class="text-green-400">true</span>
-  <span class="text-blue-300">provider:</span> <span class="text-yellow-300">"groq"</span>
-  <span class="text-blue-300">api-key:</span> <span class="text-yellow-300">"insert_your_key_here"</span>
-  <span class="text-blue-300">model:</span> <span class="text-yellow-300">"llama3-8b-8192"</span>
+                <div class="bg-surface border border-gray-700 rounded-xl overflow-hidden relative shadow-2xl">
+                    <pre class="p-6 overflow-x-auto text-xs md:text-sm leading-relaxed"><code class="language-yaml"><span class="text-control">ai-moderation:</span>
+  <span class="text-bans">enabled:</span> <span class="text-green-400">true</span>
+  <span class="text-bans">provider:</span> <span class="text-yellow-400">"groq"</span>
+  <span class="text-bans">api-key:</span> <span class="text-yellow-400">"insert_your_key_here"</span>
+  <span class="text-bans">model:</span> <span class="text-yellow-400">"llama3-8b-8192"</span>
   
-  <span class="text-pink-400">actions:</span>
+  <span class="text-control">actions:</span>
     <span class="text-gray-500"># Command to run when AI detects toxicity</span>
-    <span class="text-blue-300">violation-command:</span> <span class="text-yellow-300">"tempban {player} 7d [AI] {reason} (Conf: {confidence})"</span>
-    <span class="text-blue-300">min-confidence:</span> <span class="text-green-400">0.85</span> <span class="text-gray-500"># Only punish if 85% sure</span>
+    <span class="text-bans">violation-command:</span> <span class="text-yellow-400">"tempban {player} 7d [AI] {reason} (Conf: {confidence})"</span>
+    <span class="text-bans">min-confidence:</span> <span class="text-green-400">0.85</span> <span class="text-gray-500"># Only punish if 85% sure</span>
 
-<span class="text-pink-400">voice-moderation:</span>
-  <span class="text-blue-300">enabled:</span> <span class="text-green-400">true</span>
-  <span class="text-blue-300">model:</span> <span class="text-yellow-300">"whisper-large-v3"</span>
-  <span class="text-blue-300">silence-timeout:</span> <span class="text-green-400">1.5</span></code></pre>
+<span class="text-control">voice-moderation:</span>
+  <span class="text-bans">enabled:</span> <span class="text-green-400">true</span>
+  <span class="text-bans">model:</span> <span class="text-yellow-400">"whisper-large-v3"</span>
+  <span class="text-bans">silence-timeout:</span> <span class="text-green-400">1.5</span></code></pre>
+                </div>
+            </section>
+
+             <!-- FAQ (Accordions) -->
+             <section id="faq" class="mb-20 scroll-mt-28">
+                <h2 class="text-3xl font-bold text-white mb-6">Frequently Asked Questions</h2>
+                <div class="space-y-4" id="faq-container">
+                    
+                    <!-- Q1 -->
+                    <div class="bg-surface border border-gray-700 rounded-xl overflow-hidden">
+                        <button class="accordion-btn w-full px-6 py-4 flex justify-between items-center text-left focus:outline-none" aria-expanded="false">
+                            <span class="font-bold text-white">Does this work with Geyser/Bedrock?</span>
+                            <i class="fa-solid fa-chevron-down accordion-icon text-gray-400"></i>
+                        </button>
+                        <div class="accordion-content bg-black/20">
+                            <div class="px-6 pb-4 text-gray-400 text-sm">
+                                Yes! ControlBans fully supports Floodgate. You can ban Bedrock players using their prefix (e.g., <code class="text-control">.Tawny</code>) even if they are offline.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="bg-surface border border-gray-700 rounded-xl overflow-hidden">
+                        <button class="accordion-btn w-full px-6 py-4 flex justify-between items-center text-left focus:outline-none" aria-expanded="false">
+                            <span class="font-bold text-white">Does the AI ban instantly?</span>
+                            <i class="fa-solid fa-chevron-down accordion-icon text-gray-400"></i>
+                        </button>
+                        <div class="accordion-content bg-black/20">
+                            <div class="px-6 pb-4 text-gray-400 text-sm">
+                                It depends on your config. We use a <strong>Confidence Score</strong> system. You can set it to only ban if the AI is 95% sure, or just warn staff. It processes asynchronously so it never lags the server.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="bg-surface border border-gray-700 rounded-xl overflow-hidden">
+                        <button class="accordion-btn w-full px-6 py-4 flex justify-between items-center text-left focus:outline-none" aria-expanded="false">
+                            <span class="font-bold text-white">How do I sync bans across servers?</span>
+                            <i class="fa-solid fa-chevron-down accordion-icon text-gray-400"></i>
+                        </button>
+                        <div class="accordion-content bg-black/20">
+                            <div class="px-6 pb-4 text-gray-400 text-sm">
+                                You need a Redis server. Set <code class="text-yellow-400">redis.enabled: true</code> in config.yml on all servers. Install the <strong>ControlBans-Bridge</strong> on your proxy (Velocity/Bungee) to handle the network-wide kicks.
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Q4 -->
+                    <div class="bg-surface border border-gray-700 rounded-xl overflow-hidden">
+                        <button class="accordion-btn w-full px-6 py-4 flex justify-between items-center text-left focus:outline-none" aria-expanded="false">
+                            <span class="font-bold text-white">Is the Web Panel separate?</span>
+                            <i class="fa-solid fa-chevron-down accordion-icon text-gray-400"></i>
+                        </button>
+                        <div class="accordion-content bg-black/20">
+                            <div class="px-6 pb-4 text-gray-400 text-sm">
+                                No! The web server is built directly into the plugin jar using Jetty. You just enable it in the config, open the port, and go to <code class="text-blue-400">http://your-ip:8080</code>. No PHP or Apache required.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -587,7 +657,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="py-12 border-t border-gray-800 text-center bg-darker">
+    <footer class="py-12 border-t border-gray-800 text-center bg-darker z-50 relative">
         <div class="text-2xl font-bold tracking-tighter mb-4 text-gray-500">
             <span class="text-control">Control</span><span class="text-bans">Bans</span>
         </div>
@@ -616,6 +686,31 @@
         toggleBtn.addEventListener('click', toggleMenu);
         overlay.addEventListener('click', toggleMenu);
         mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Accordion Logic
+        const accordions = document.querySelectorAll('.accordion-btn');
+
+        accordions.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const content = btn.nextElementSibling;
+                const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+                accordions.forEach(otherBtn => {
+                    if (otherBtn !== btn) {
+                        otherBtn.setAttribute('aria-expanded', 'false');
+                        otherBtn.nextElementSibling.style.maxHeight = '0';
+                        otherBtn.nextElementSibling.classList.remove('active');
+                    }
+                });
+                btn.setAttribute('aria-expanded', !isExpanded);
+                if (!isExpanded) {
+                    content.classList.add('active');
+                    content.style.maxHeight = content.scrollHeight + "px";
+                } else {
+                    content.classList.remove('active');
+                    content.style.maxHeight = "0";
+                }
+            });
+        });
     </script>
 </body>
 </html>
