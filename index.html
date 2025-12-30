@@ -49,10 +49,17 @@
 
     <!-- Navbar -->
     <nav class="w-full py-6 px-4 md:px-12 flex justify-between items-center absolute top-0 left-0 z-50">
-        <div class="text-2xl font-bold tracking-tighter">
+        <div class="text-2xl font-bold tracking-tighter cursor-pointer" onclick="window.location.href='index.html'">
             <span class="text-control">Control</span><span class="text-bans">Bans</span>
         </div>
-        <div class="flex gap-4">
+        <div class="flex gap-6 items-center">
+            <!-- Navigation Links -->
+            <a href="index.html" class="text-white font-bold border-b-2 border-control pb-1 transition">Home</a>
+            <a href="docs.html" class="text-gray-400 hover:text-white transition font-medium">Documentation</a>
+            
+            <div class="h-6 w-px bg-gray-700 mx-2 hidden md:block"></div>
+
+            <!-- Socials -->
             <a href="https://github.com/TawnyE/ControlBans" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-github text-xl"></i></a>
             <a href="https://discord.gg/xRchyJFkBG" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-discord text-xl"></i></a>
         </div>
@@ -286,4 +293,4 @@
     </footer>
 
 </body>
-    </html>
+</html>
