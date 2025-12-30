@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | ControlBans</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        code { font-family: 'JetBrains Mono', monospace; }
+        html { scroll-behavior: smooth; }
+        
+        .glass-sidebar {
+            background: rgba(15, 15, 15, 0.95);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f0f0f; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #e74c3c; }
+
+        .table-row:nth-child(even) { background-color: rgba(255,255,255,0.02); }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        control: '#e74c3c',
+                        bans: '#3498db',
+                        dark: '#0f0f0f',
+                        darker: '#080808'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark text-gray-300 selection:bg-control selection:text-white">
+
+    <!-- Fixed Navbar -->
+    <nav class="w-full h-20 bg-darker/90 backdrop-blur-md border-b border-gray-800 flex justify-between items-center px-6 md:px-12 fixed top-0 z-50">
+        <div class="text-2xl font-bold tracking-tighter cursor-pointer" onclick="window.location.href='index.html'">
+            <span class="text-control">Control</span><span class="text-bans">Bans</span> <span class="text-gray-600 text-sm font-normal ml-2">DOCS</span>
+        </div>
+        <div class="flex gap-6 items-center">
+            <a href="index.html" class="text-gray-400 hover:text-white transition font-medium">Home</a>
+            <a href="docs.html" class="text-white font-bold border-b-2 border-control pb-1 transition">Documentation</a>
+            <a href="https://builtbybit.com/resources/controlbans.78397/" target="_blank" class="px-4 py-2 bg-control hover:bg-red-600 text-white rounded-lg font-bold text-sm transition">Buy Now</a>
+        </div>
+    </nav>
+
+    <div class="flex pt-20 min-h-screen">
+        
+        <!-- Sidebar Navigation (Desktop) -->
+        <aside class="w-64 glass-sidebar fixed h-full hidden md:flex flex-col pt-8 pb-20 overflow-y-auto">
+            <div class="px-6 mb-8">
+                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Core</p>
+                <ul class="space-y-2">
+                    <li><a href="#installation" class="block text-gray-300 hover:text-white hover:translate-x-1 transition">Installation</a></li>
+                    <li><a href="#punishments" class="block text-gray-300 hover:text-white hover:translate-x-1 transition">Punishments</a></li>
+                    <li><a href="#utils" class="block text-gray-300 hover:text-white hover:translate-x-1 transition">Utilities</a></li>
+                </ul>
+            </div>
+            
+            <div class="px-6 mb-8">
+                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Configuration</p>
+                <ul class="space-y-2">
+                    <li><a href="#permissions" class="block text-gray-300 hover:text-white hover:translate-x-1 transition">Permissions</a></li>
+                    <li><a href="#ai-config" class="block text-gray-300 hover:text-white hover:translate-x-1 transition">AI & Voice Setup</a></li>
+                    <li><a href="#database" class="block text-gray-300 hover:text-white hover:translate-x-1 transition">Database</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-64 p-8 md:p-12 max-w-5xl mx-auto">
+            
+            <!-- Installation -->
+            <section id="installation" class="mb-16 scroll-mt-24">
+                <h1 class="text-4xl font-bold text-white mb-6">Installation</h1>
+                <div class="bg-gray-800/50 border border-gray-700 rounded-xl p-6">
+                    <ol class="list-decimal list-inside space-y-4 text-gray-300">
+                        <li>Download the jar file from <a href="#" class="text-bans hover:underline">BuiltByBit</a> (Premium) or <a href="#" class="text-bans hover:underline">Modrinth</a> (Free).</li>
+                        <li>Drag and drop the file into your <code class="bg-black/30 px-2 py-1 rounded text-red-400">/plugins</code> folder.</li>
+                        <li>Restart your server.</li>
+                        <li>(Optional) Configure <code class="bg-black/30 px-2 py-1 rounded text-yellow-400">config.yml</code> and <code class="bg-black/30 px-2 py-1 rounded text-yellow-400">ai-config.yml</code>.</li>
+                    </ol>
+                    <div class="mt-4 p-4 bg-blue-900/20 border border-blue-800/50 rounded-lg flex items-start gap-3">
+                        <i class="fa-solid fa-info-circle text-blue-400 mt-1"></i>
+                        <p class="text-sm text-blue-200"><strong>Note for Networks:</strong> If using BungeeCord or Velocity, verify you have installed the bridge plugin in the proxy plugins folder for synchronization to work.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Punishments -->
+            <section id="punishments" class="mb-16 scroll-mt-24">
+                <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                    <span class="w-2 h-8 bg-control rounded-full"></span> Punishment Commands
+                </h2>
+                <p class="mb-4 text-gray-400">All punishment commands support the <code class="text-control">-s</code> flag for silent execution (hidden from public chat).</p>
+                
+                <div class="overflow-x-auto rounded-xl border border-gray-700">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-gray-800 text-gray-400 text-sm uppercase">
+                            <tr>
+                                <th class="p-4 font-semibold">Command</th>
+                                <th class="p-4 font-semibold">Permission</th>
+                                <th class="p-4 font-semibold">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-700 bg-gray-900/50">
+                            <tr class="table-row hover:bg-gray-800/50 transition">
+                                <td class="p-4 font-mono text-white">/ban &lt;player&gt; [reason]</td>
+                                <td class="p-4 text-sm text-gray-400">controlbans.ban</td>
+                                <td class="p-4">Permanently bans a player.</td>
+                            </tr>
+                            <tr class="table-row hover:bg-gray-800/50 transition">
+                                <td class="p-4 font-mono text-white">/tempban &lt;player&gt; &lt;time&gt;</td>
+                                <td class="p-4 text-sm text-gray-400">controlbans.tempban</td>
+                                <td class="p-4">Temporarily bans a player (e.g. <code class="text-yellow-400">1d12h</code>).</td>
+                            </tr>
+                            <tr class="table-row hover:bg-gray-800/50 transition">
+                                <td class="p-4 font-mono text-white">/mute &lt;player&gt; [reason]</td>
+                                <td class="p-4 text-sm text-gray-400">controlbans.mute</td>
+                                <td class="p-4">Permanently mutes a player from chat.</td>
+                            </tr>
+                             <tr class="table-row hover:bg-gray-800/50 transition">
+                                <td class="p-4 font-mono text-white">/voicemute &lt;player&gt;</td>
+                                <td class="p-4 text-sm text-gray-400">controlbans.voicemute</td>
+                                <td class="p-4">Mutes a player in SimpleVoiceChat only.</td>
+                            </tr>
+                            <tr class="table-row hover:bg-gray-800/50 transition">
+                                <td class="p-4 font-mono text-white">/voidjail &lt;player&gt;</td>
+                                <td class="p-4 text-sm text-gray-400">controlbans.voidjail</td>
+                                <td class="p-4">Traps player in an inescapable void box.</td>
+                            </tr>
+                             <tr class="table-row hover:bg-gray-800/50 transition">
+                                <td class="p-4 font-mono text-white">/banskin &lt;player&gt;</td>
+                                <td class="p-4 text-sm text-gray-400">controlbans.banskin</td>
+                                <td class="p-4">Forcibly removes a player's skin.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Utils -->
+            <section id="utils" class="mb-16 scroll-mt-24">
+                <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                    <span class="w-2 h-8 bg-bans rounded-full"></span> Utilities & Tools
+                </h2>
+                
+                <div class="overflow-x-auto rounded-xl border border-gray-700">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-gray-800 text-gray-400 text-sm uppercase">
+                            <tr>
+                                <th class="p-4 font-semibold">Command</th>
+                                <th class="p-4 font-semibold">Permission</th>
+                                <th class="p-4 font-semibold">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-700 bg-gray-900/50">
+                            <tr class="table-row hover:bg-gray-800/50 transition">
+                                <td class="p-4 font-mono text-white">/history &lt;player&gt;</td>
+                                <td class="p-4 text-sm text-gray-400">controlbans.history</td>
+                                <td class="p-4">Opens a GUI showing past punishments.</td>
+                            </tr>
+                            <tr class="table-row hover:bg-gray-800/50 transition">
+                                <td class="p-4 font-mono text-white">/alts &lt;player&gt;</td>
+                                <td class="p-4 text-sm text-gray-400">controlbans.alts</td>
+                                <td class="p-4">Scans for accounts sharing the same IP.</td>
+                            </tr>
+                            <tr class="table-row hover:bg-gray-800/50 transition">
+                                <td class="p-4 font-mono text-white">/freeze &lt;player&gt;</td>
+                                <td class="p-4 text-sm text-gray-400">controlbans.freeze</td>
+                                <td class="p-4">Freezes player movement for SS/Inspection.</td>
+                            </tr>
+                             <tr class="table-row hover:bg-gray-800/50 transition">
+                                <td class="p-4 font-mono text-white">/controlbans import</td>
+                                <td class="p-4 text-sm text-gray-400">controlbans.import</td>
+                                <td class="p-4">Start migration from LiteBans/Essentials.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- AI Configuration -->
+            <section id="ai-config" class="mb-16 scroll-mt-24">
+                <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                    <span class="w-2 h-8 bg-purple-500 rounded-full"></span> AI Configuration
+                </h2>
+                <p class="text-gray-400 mb-4">
+                    ControlBans requires an API key to process voice data. We support <strong>Groq</strong> (Recommended for speed) and OpenAI.
+                </p>
+                <div class="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden relative group">
+                    <div class="absolute top-2 right-2 text-xs text-gray-500">ai-config.yml</div>
+                    <pre class="p-6 overflow-x-auto text-sm"><code class="language-yaml"><span class="text-pink-400">ai-moderation:</span>
+  <span class="text-blue-300">enabled:</span> <span class="text-green-400">true</span>
+  <span class="text-blue-300">provider:</span> <span class="text-yellow-300">"groq"</span> <span class="text-gray-500"># Options: groq, openai</span>
+  <span class="text-blue-300">api-key:</span> <span class="text-yellow-300">"insert_your_key_here"</span>
+  <span class="text-blue-300">model:</span> <span class="text-yellow-300">"llama3-8b-8192"</span>
+
+  <span class="text-gray-500"># Actions to take when AI is confident of a violation</span>
+  <span class="text-pink-400">actions:</span>
+    <span class="text-blue-300">violation-command:</span> <span class="text-yellow-300">"tempban {player} 7d [AI] {reason}"</span>
+    <span class="text-blue-300">min-confidence:</span> <span class="text-green-400">0.85</span>
+
+<span class="text-pink-400">voice-moderation:</span>
+  <span class="text-blue-300">enabled:</span> <span class="text-green-400">true</span>
+  <span class="text-gray-500"># Uses Whisper v3 for speech-to-text</span>
+  <span class="text-blue-300">model:</span> <span class="text-yellow-300">"whisper-large-v3"</span>
+  <span class="text-blue-300">silence-timeout:</span> <span class="text-green-400">1.5</span></code></pre>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer class="py-8 border-t border-gray-800 text-center bg-darker">
+        <div class="text-gray-600 text-sm">
+            &copy; 2025 Tawny. Documentation for ControlBans v4.2+
+        </div>
+    </footer>
+
+</body>
+  </html>
