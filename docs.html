@@ -301,4 +301,59 @@
                 <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
                     <span class="w-2 h-8 bg-purple-500 rounded-full"></span> AI & Voice Config
                 </h2>
-                <p class="text-gray-400 mb-4">Settings for AI moderation in <code class="text-yellow-400 bg-gray-800 px-1 rounded">ai-con
+                <p class="text-gray-400 mb-4">Settings for AI moderation in <code class="text-yellow-400 bg-gray-800 px-1 rounded">ai-config.yml</code>.</p>
+                <div class="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden relative shadow-2xl">
+                    <pre class="p-6 overflow-x-auto text-xs md:text-sm leading-relaxed"><code class="language-yaml"><span class="text-pink-400">ai-moderation:</span>
+  <span class="text-blue-300">enabled:</span> <span class="text-green-400">true</span>
+  <span class="text-blue-300">provider:</span> <span class="text-yellow-300">"groq"</span>
+  <span class="text-blue-300">api-key:</span> <span class="text-yellow-300">"insert_your_key_here"</span>
+  <span class="text-blue-300">model:</span> <span class="text-yellow-300">"llama3-8b-8192"</span>
+  
+  <span class="text-pink-400">actions:</span>
+    <span class="text-gray-500"># Command to run when AI detects toxicity</span>
+    <span class="text-blue-300">violation-command:</span> <span class="text-yellow-300">"tempban {player} 7d [AI] {reason} (Conf: {confidence})"</span>
+    <span class="text-blue-300">min-confidence:</span> <span class="text-green-400">0.85</span> <span class="text-gray-500"># Only punish if 85% sure</span>
+
+<span class="text-pink-400">voice-moderation:</span>
+  <span class="text-blue-300">enabled:</span> <span class="text-green-400">true</span>
+  <span class="text-blue-300">model:</span> <span class="text-yellow-300">"whisper-large-v3"</span>
+  <span class="text-blue-300">silence-timeout:</span> <span class="text-green-400">1.5</span></code></pre>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-800 text-center bg-darker">
+        <div class="text-2xl font-bold tracking-tighter mb-4 text-gray-500">
+            <span class="text-control">Control</span><span class="text-bans">Bans</span>
+        </div>
+        <div class="text-gray-600 text-sm">
+            &copy; 2025 Tawny. Documentation for ControlBans v4.2+
+        </div>
+    </footer>
+
+    <script>
+        const toggleBtn = document.getElementById('sidebar-toggle');
+        const mobileMenu = document.getElementById('docs-menu');
+        const overlay = document.getElementById('mobile-sidebar-overlay');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            if (mobileMenu.classList.contains('open')) {
+                overlay.classList.remove('hidden');
+                toggleBtn.classList.add('text-white');
+            } else {
+                overlay.classList.add('hidden');
+                toggleBtn.classList.remove('text-white');
+            }
+        }
+
+        toggleBtn.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+    </script>
+</body>
+</html>
