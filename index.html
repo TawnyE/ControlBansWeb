@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ControlBans | Next-Gen Minecraft Moderation</title>
+    <title>ControlBans | The Next Gen Solution</title>
     <meta name="description" content="AI Voice Moderation, Web Panel, and Cross-Server punishments for Minecraft.">
     
     <!-- Tailwind CSS -->
@@ -13,25 +13,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Outfit', sans-serif; }
         .hero-bg {
-            background: radial-gradient(circle at top right, #2c1a1a 0%, #0f0f0f 40%);
+            background: radial-gradient(circle at center, #1a1a2e 0%, #050505 100%);
+            position: relative;
         }
+        /* Subtle animated background grid */
+        .hero-bg::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(52, 152, 219, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(52, 152, 219, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+            z-index: 0;
+        }
+
         .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
+            background: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
         }
-        .text-glow {
-            text-shadow: 0 0 20px rgba(231, 76, 60, 0.3);
+        .glass-card:hover {
+            border-color: rgba(52, 152, 219, 0.3);
+            transform: translateY(-5px);
+            background: rgba(25, 25, 35, 0.8);
         }
         
-        /* Mobile Menu Animation */
-        #mobile-menu { transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
-        #mobile-menu.open { max-height: 500px; opacity: 1; }
+        .text-glow {
+            text-shadow: 0 0 30px rgba(52, 152, 219, 0.4);
+        }
+        
+        .leaf-glow {
+            text-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
+        }
     </style>
     
     <script>
@@ -39,271 +60,216 @@
             theme: {
                 extend: {
                     colors: {
-                        control: '#e74c3c', // Red
-                        bans: '#3498db',    // Blue
-                        dark: '#0f0f0f',
-                        darker: '#080808'
+                        control: '#e74c3c', // Red (Errors/Bans)
+                        bans: '#3498db',    // Blue (Main Theme)
+                        leaf: '#2ecc71',    // Green (Folia/Success)
+                        dark: '#0a0a0a',
+                        darker: '#050505'
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'monospace']
                     }
                 }
             }
         }
     </script>
 </head>
-<body class="bg-dark text-gray-200 selection:bg-control selection:text-white">
+<body class="bg-dark text-gray-200 selection:bg-bans selection:text-white overflow-x-hidden">
 
     <!-- Navbar -->
     <nav class="w-full py-6 px-6 md:px-12 flex justify-between items-center absolute top-0 left-0 z-50">
-        <div class="text-2xl font-bold tracking-tighter z-50">
-            <span class="text-control">Control</span><span class="text-bans">Bans</span>
+        <div class="text-2xl font-bold tracking-tighter z-50 cursor-pointer hover:opacity-80 transition" onclick="window.location.reload()">
+            <span class="text-white">Control</span><span class="text-bans">Bans</span>
         </div>
 
-        <!-- Desktop Menu -->
-        <div class="hidden md:flex gap-6 items-center">
-            <a href="index.html" class="text-white font-bold border-b-2 border-control pb-1 transition">Home</a>
-            <a href="docs.html" class="text-gray-400 hover:text-white transition font-medium">Documentation</a>
-            <div class="h-6 w-px bg-gray-700 mx-2"></div>
-            <a href="https://github.com/TawnyE/ControlBans" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-github text-xl"></i></a>
-            <a href="https://discord.gg/xRchyJFkBG" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-discord text-xl"></i></a>
+        <div class="flex gap-6 items-center">
+            <a href="docs.html" class="text-gray-400 hover:text-white transition font-semibold">Docs</a>
+            <a href="https://discord.gg/xRchyJFkBG" target="_blank" class="text-gray-400 hover:text-[#5865F2] transition"><i class="fa-brands fa-discord text-xl"></i></a>
         </div>
-
-        <!-- Mobile Menu Button -->
-        <button id="menu-btn" class="md:hidden text-white z-50 focus:outline-none">
-            <i class="fa-solid fa-bars text-2xl"></i>
-        </button>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed top-0 left-0 w-full bg-darker/95 backdrop-blur-xl z-40 border-b border-gray-800 md:hidden pt-24 pb-8 px-6 shadow-2xl">
-        <div class="flex flex-col gap-6 text-center text-lg">
-            <a href="index.html" class="text-white font-bold">Home</a>
-            <a href="docs.html" class="text-gray-400 hover:text-white">Documentation</a>
-            <hr class="border-gray-800">
-            <div class="flex justify-center gap-8">
-                <a href="https://github.com/TawnyE/ControlBans" target="_blank"><i class="fa-brands fa-github text-2xl text-gray-400"></i></a>
-                <a href="https://discord.gg/xRchyJFkBG" target="_blank"><i class="fa-brands fa-discord text-2xl text-bans"></i></a>
-            </div>
-        </div>
-    </div>
+    <!-- HERO SECTION -->
+    <header class="hero-bg min-h-[85vh] flex flex-col justify-center items-center text-center px-4 relative">
+        
+        <!-- Glowing Orbs -->
+        <div class="absolute top-1/3 left-1/4 w-64 h-64 bg-bans opacity-20 blur-[120px] rounded-full pointer-events-none animate-pulse"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-64 h-64 bg-control opacity-10 blur-[120px] rounded-full pointer-events-none"></div>
 
-    <!-- Hero Section -->
-    <header class="hero-bg min-h-screen flex flex-col justify-center items-center text-center px-4 pt-24 relative overflow-hidden">
-        <!-- Background Elements -->
-        <div class="absolute top-1/4 left-1/4 w-64 h-64 md:w-96 md:h-96 bg-control opacity-10 blur-[80px] md:blur-[100px] rounded-full pointer-events-none"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-64 h-64 md:w-96 md:h-96 bg-bans opacity-10 blur-[80px] md:blur-[100px] rounded-full pointer-events-none"></div>
-
-        <div class="z-10 max-w-4xl w-full">
-            <div class="inline-block px-4 py-1 rounded-full border border-gray-700 bg-gray-900/50 text-xs md:text-sm text-gray-400 mb-6">
-                <i class="fa-solid fa-bolt text-yellow-400 mr-2"></i> v4.2 Update: Zero-Latency Chat & AI Safety
+        <div class="z-10 relative">
+            <div class="mb-4 animate-bounce">
+                <i class="fa-solid fa-chevron-down text-bans opacity-50"></i>
             </div>
             
-            <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-6 tracking-tight text-white leading-tight">
-                The Future of <br class="hidden md:block">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-control to-bans text-glow">Server Moderation</span>
+            <h1 class="text-6xl md:text-8xl font-extrabold mb-4 tracking-tight text-white leading-tight">
+                THE <span class="text-transparent bg-clip-text bg-gradient-to-r from-bans to-cyan-400 text-glow">NEXT GEN</span>
+                <br> MODERATION.
             </h1>
             
-            <p class="text-base sm:text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto px-2">
-                Stop disabling Voice Chat. Start moderating it. <br class="hidden sm:block">
-                Includes AI Analysis, Web Panel, Folia Support, and Instant Redis Sync.
-            </p>
-
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center w-full sm:w-auto px-4">
-                <!-- BuiltByBit Button -->
-                <a href="https://builtbybit.com/resources/controlbans.78397/" target="_blank" class="w-full sm:w-auto group relative px-8 py-4 bg-control hover:bg-red-600 rounded-xl font-bold text-white transition-all transform hover:scale-105 shadow-lg shadow-red-900/20">
-                    <div class="flex items-center justify-center sm:justify-start gap-3">
-                        <i class="fa-solid fa-bolt text-xl"></i>
-                        <div class="text-left">
-                            <div class="text-xs opacity-90 font-medium">PRIORITY ACCESS</div>
-                            <div class="text-lg leading-none">Get on BuiltByBit</div>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Modrinth Button -->
-                <a href="https://modrinth.com/plugin/controlbans" target="_blank" class="w-full sm:w-auto group relative px-8 py-4 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-xl font-bold text-white transition-all transform hover:scale-105">
-                    <div class="flex items-center justify-center sm:justify-start gap-3">
-                        <i class="fa-solid fa-download text-bans text-xl"></i>
-                        <div class="text-left">
-                            <div class="text-xs text-gray-400 font-medium">COMMUNITY TIER</div>
-                            <div class="text-lg leading-none">Download Free</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            
-            <p class="mt-6 text-xs sm:text-sm text-gray-500">
-                <i class="fa-solid fa-check mr-1 text-green-500"></i> Identical Code Quality & Features
+            <p class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto font-light mt-4">
+                Stop relying on plugins from 2015. <br>
+                <span class="text-white font-medium">ControlBans</span> brings your server into the modern era.
             </p>
         </div>
     </header>
 
-    <!-- AI Feature Highlight -->
-    <section class="py-16 md:py-20 bg-darker border-y border-gray-800">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col lg:flex-row items-center gap-12">
-                <div class="flex-1 space-y-6 w-full">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white">
-                        <i class="fa-solid fa-robot text-bans mr-2"></i> AI Voice Moderation
-                    </h2>
-                    <p class="text-gray-400 text-lg leading-relaxed">
-                        ControlBans integrates with state-of-the-art AI models (Whisper v3) to transcribe and analyze proximity voice chat in real-time. Detect hate speech, harassment, and toxicity without listening to hours of audio logs.
-                    </p>
-                    <ul class="space-y-4 mt-4">
-                        <li class="flex items-start gap-3 text-gray-300">
-                            <i class="fa-solid fa-check-circle text-bans mt-1"></i> 
-                            <span>Distinguishes friendly banter vs. actual abuse.</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-gray-300">
-                            <i class="fa-solid fa-check-circle text-bans mt-1"></i> 
-                            <span>"Violation Count" logic prevents false positives.</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-gray-300">
-                            <i class="fa-solid fa-check-circle text-bans mt-1"></i> 
-                            <span>Async processing ensures 0 TPS loss.</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex-1 w-full">
-                    <!-- Fake Terminal / Code Snippet -->
-                    <div class="bg-[#1e1e1e] rounded-xl shadow-2xl border border-gray-700 p-4 sm:p-6 font-mono text-xs sm:text-sm overflow-hidden relative">
-                        <div class="flex gap-2 mb-4">
-                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="text-gray-500"># Server Console</div>
-                            <div><span class="text-blue-400">[Voice]</span> <span class="text-yellow-300">Player1</span>: "This server is actually amazing!"</div>
-                            <div class="text-gray-500 ml-2 border-l-2 border-gray-700 pl-2">-> AI Analysis: <span class="text-green-400">POSITIVE (98%)</span></div>
-                            <br>
-                            <div><span class="text-blue-400">[Voice]</span> <span class="text-yellow-300">Griefer123</span>: [Transcribed Toxic Speech...]</div>
-                            <div class="text-gray-500 ml-2 border-l-2 border-gray-700 pl-2">-> AI Analysis: <span class="text-red-500">HATE_SPEECH (99%)</span></div>
-                            <div><span class="text-control">[ControlBans]</span> Banning Griefer123 for Hate Speech (AI Detected).</div>
-                        </div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#1e1e1e] to-transparent opacity-20 pointer-events-none"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Grid Features -->
-    <section class="py-16 md:py-20 px-4">
-        <div class="container mx-auto">
-            <div class="text-center mb-12 md:mb-16">
-                <h2 class="text-3xl font-bold mb-4 text-white">Enterprise-Grade Architecture</h2>
-                <p class="text-gray-400">Built for stability, scaling from 1 to 10,000 players.</p>
-            </div>
+    <!-- TECH STACK STRIP -->
+    <div class="w-full border-y border-gray-800 bg-darker py-8 relative z-20">
+        <div class="container mx-auto px-4 flex flex-wrap justify-center gap-8 md:gap-16 items-center opacity-70 hover:opacity-100 transition duration-500">
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                <!-- Card 1 -->
-                <div class="glass-card p-6 md:p-8 rounded-2xl hover:bg-gray-800/50 transition">
-                    <div class="w-12 h-12 bg-control/20 rounded-lg flex items-center justify-center text-control text-2xl mb-6">
-                        <i class="fa-solid fa-server"></i>
+            <!-- Folia -->
+            <div class="flex items-center gap-3 group cursor-default">
+                <i class="fa-solid fa-leaf text-2xl text-leaf group-hover:text-green-400 transition leaf-glow"></i>
+                <span class="font-bold text-lg text-gray-300 group-hover:text-white">Folia Native</span>
+            </div>
+
+            <!-- Redis -->
+            <div class="flex items-center gap-3 group cursor-default">
+                <i class="fa-solid fa-server text-2xl text-red-500 group-hover:text-red-400 transition"></i>
+                <span class="font-bold text-lg text-gray-300 group-hover:text-white">Redis Sync</span>
+            </div>
+
+            <!-- Velocity -->
+            <div class="flex items-center gap-3 group cursor-default">
+                <i class="fa-solid fa-network-wired text-2xl text-blue-400 group-hover:text-blue-300 transition"></i>
+                <span class="font-bold text-lg text-gray-300 group-hover:text-white">Velocity & Bungee</span>
+            </div>
+
+            <!-- AI -->
+            <div class="flex items-center gap-3 group cursor-default">
+                <i class="fa-solid fa-microchip text-2xl text-purple-500 group-hover:text-purple-400 transition"></i>
+                <span class="font-bold text-lg text-gray-300 group-hover:text-white">AI Powered</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FEATURES GRID -->
+    <section class="py-24 px-4 bg-dark">
+        <div class="container mx-auto max-w-6xl">
+            
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white mb-4">Everything you need. <span class="text-gray-500">And more.</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Feature 1: AI -->
+                <div class="glass-card p-8 rounded-2xl md:col-span-2 flex flex-col md:flex-row gap-8 items-center">
+                    <div class="flex-1 space-y-4">
+                        <div class="inline-block p-3 rounded-lg bg-bans/10 text-bans mb-2">
+                            <i class="fa-solid fa-ear-listen text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">It listens, so you don't have to.</h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            Most servers disable Voice Chat because it's impossible to moderate. We fixed that.
+                            ControlBans uses <strong>Whisper v3 AI</strong> to transcribe and analyze voice chat for toxicity in real-time.
+                        </p>
+                        <ul class="text-sm text-gray-500 space-y-2 font-mono">
+                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i>Distinguishes banter vs abuse</li>
+                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i>Fully Asynchronous</li>
+                        </ul>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Redis Synchronization</h3>
-                    <p class="text-gray-400 text-sm md:text-base">Instant cross-server bans, mutes, and notifications. Works seamlessly with Velocity and BungeeCord.</p>
+                    <div class="flex-1 w-full bg-black/40 rounded-xl border border-gray-800 p-4 font-mono text-sm">
+                        <div class="text-gray-600 mb-2">// Server Console Log</div>
+                        <div class="mb-2"><span class="text-blue-400">[Voice]</span> <span class="text-yellow-500">Player1</span>: "This server is awesome!"</div>
+                        <div class="text-green-500 mb-4">-> AI Verdict: SAFE (99%)</div>
+                        <div class="mb-2"><span class="text-blue-400">[Voice]</span> <span class="text-yellow-500">TrollUser</span>: [Toxic Speech Detected...]</div>
+                        <div class="text-red-500">-> AI Verdict: TOXIC (98%) -> Auto-Muting...</div>
+                    </div>
                 </div>
 
-                <!-- Card 2 -->
-                <div class="glass-card p-6 md:p-8 rounded-2xl hover:bg-gray-800/50 transition">
-                    <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center text-purple-400 text-2xl mb-6">
-                        <i class="fa-solid fa-rocket"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Folia Ready</h3>
-                    <p class="text-gray-400 text-sm md:text-base">Native support for the Folia Region Scheduler. No hacks, no workarounds. True multi-threaded performance.</p>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="glass-card p-6 md:p-8 rounded-2xl hover:bg-gray-800/50 transition">
-                    <div class="w-12 h-12 bg-bans/20 rounded-lg flex items-center justify-center text-bans text-2xl mb-6">
+                <!-- Feature 2: Web Panel -->
+                <div class="glass-card p-8 rounded-2xl">
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center text-purple-400 text-2xl mb-6">
                         <i class="fa-solid fa-globe"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Built-in Web Panel</h3>
-                    <p class="text-gray-400 text-sm md:text-base">Includes a lightweight Jetty web server. View punishments in your browser without needing PHP or Apache.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">Built-in Web Panel</h3>
+                    <p class="text-gray-400">
+                        Forget setting up Apache, PHP, or MySQL frontends. ControlBans includes a lightweight internal web server. Just type the port in your config and view bans instantly.
+                    </p>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Version Comparison -->
-    <section class="py-16 md:py-20 bg-darker border-t border-gray-800" id="download">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12 text-white">Choose Your Version</h2>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <!-- Premium -->
-                <div class="relative bg-gradient-to-b from-gray-800 to-gray-900 rounded-2xl border border-control p-8 transform hover:-translate-y-1 transition duration-300 shadow-2xl shadow-control/10 order-1 lg:order-1">
-                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-control text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide whitespace-nowrap shadow-lg">
-                        Recommended
+                <!-- Feature 3: Creative Punishments -->
+                <div class="glass-card p-8 rounded-2xl">
+                    <div class="w-12 h-12 bg-control/10 rounded-lg flex items-center justify-center text-control text-2xl mb-6">
+                        <i class="fa-solid fa-gavel"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-2">Priority Access</h3>
-                    <div class="text-control font-bold mb-6 text-sm uppercase tracking-wide">Via BuiltByBit</div>
-                    
-                    <ul class="space-y-4 mb-8 text-gray-300">
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> <strong>Instant Updates</strong> (No waiting)</li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Priority Discord Support</li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Support AI Development</li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Direct Download</li>
-                    </ul>
-                    
-                    <a href="https://builtbybit.com/resources/controlbans.78397/" target="_blank" class="block w-full py-4 bg-control hover:bg-red-600 text-white font-bold text-center rounded-xl transition shadow-lg">
-                        Buy Now
-                    </a>
+                    <h3 class="text-xl font-bold text-white mb-3">Creative Punishments</h3>
+                    <p class="text-gray-400">
+                        Go beyond simple bans. Use <strong>Void Jail</strong> to trap trolls in an inescapable box, or <strong>Skin Ban</strong> to forcibly remove inappropriate skins.
+                    </p>
                 </div>
 
-                <!-- Free -->
-                <div class="bg-gray-900 rounded-2xl border border-gray-800 p-8 order-2 lg:order-2">
-                    <h3 class="text-2xl font-bold text-white mb-2">Community Access</h3>
-                    <div class="text-bans font-bold mb-6 text-sm uppercase tracking-wide">Via Modrinth</div>
-                    
-                    <ul class="space-y-4 mb-8 text-gray-400">
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-clock text-yellow-500"></i> Updates Delayed (5-8 Days)</li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-users text-blue-500"></i> Community Support Only</li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-rectangle-ad text-gray-500"></i> Ad-Supported Download</li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> <strong>Exact Same Quality Code</strong></li>
-                    </ul>
-                    
-                    <a href="https://modrinth.com/plugin/controlbans" target="_blank" class="block w-full py-4 bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-bold text-center rounded-xl transition">
-                        Download Free
-                    </a>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="py-12 border-t border-gray-800 text-center bg-dark">
-        <div class="mb-6">
-            <span class="text-2xl font-bold tracking-tighter">
-                <span class="text-control">Control</span><span class="text-bans">Bans</span>
-            </span>
+    <!-- DOWNLOAD SECTION (The Footer) -->
+    <section class="py-24 bg-darker relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent"></div>
+        
+        <div class="container mx-auto px-4 max-w-5xl">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-bold text-white mb-6">Ready to upgrade?</h2>
+                <p class="text-xl text-gray-400">Both versions contain the exact same code.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                
+                <!-- Premium Card -->
+                <div class="glass-card p-1 rounded-3xl bg-gradient-to-b from-gray-700 to-gray-900">
+                    <div class="bg-gray-900 rounded-[22px] p-8 h-full flex flex-col relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-control text-white text-xs font-bold px-3 py-1 rounded-bl-lg">INSTANT</div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-bolt text-yellow-400"></i> Priority Access
+                            </h3>
+                            <p class="text-control font-bold text-sm mt-1">VIA BUILTBYBIT</p>
+                        </div>
+                        
+                        <ul class="space-y-4 mb-8 flex-1 text-gray-300">
+                            <li class="flex gap-3 items-center"><i class="fa-solid fa-check text-green-500"></i> Instant Updates (No wait)</li>
+                            <li class="flex gap-3 items-center"><i class="fa-solid fa-check text-green-500"></i> Priority Support</li>
+                            <li class="flex gap-3 items-center"><i class="fa-solid fa-check text-green-500"></i> Direct Download</li>
+                        </ul>
+
+                        <a href="https://builtbybit.com/resources/controlbans.78397/" target="_blank" class="w-full py-4 bg-control hover:bg-red-600 text-white font-bold rounded-xl text-center transition flex items-center justify-center gap-2 shadow-lg shadow-control/20">
+                            Get Instant Access <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Free Card -->
+                <div class="glass-card p-1 rounded-3xl border-gray-800">
+                    <div class="bg-transparent rounded-[22px] p-8 h-full flex flex-col">
+                        <div class="mb-6">
+                            <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-users text-bans"></i> Community Tier
+                            </h3>
+                            <p class="text-bans font-bold text-sm mt-1">VIA MODRINTH</p>
+                        </div>
+                        
+                        <ul class="space-y-4 mb-8 flex-1 text-gray-400">
+                            <li class="flex gap-3 items-center"><i class="fa-solid fa-clock text-yellow-500"></i> Updates Delayed (5-8 Days)</li>
+                            <li class="flex gap-3 items-center"><i class="fa-solid fa-rectangle-ad text-gray-500"></i> Ad-Supported Link</li>
+                            <li class="flex gap-3 items-center"><i class="fa-solid fa-check text-green-500"></i> <strong>Identical Code Quality</strong></li>
+                        </ul>
+
+                        <a href="https://modrinth.com/plugin/controlbans" target="_blank" class="w-full py-4 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-xl text-center transition border border-gray-700">
+                            Download Free
+                        </a>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div class="flex flex-wrap justify-center gap-6 mb-8 px-4">
-            <a href="https://discord.gg/xRchyJFkBG" class="text-gray-500 hover:text-white transition">Discord Support</a>
-            <a href="https://github.com/TawnyE/ControlBans" class="text-gray-500 hover:text-white transition">Legacy Source Code</a>
-            <a href="https://bstats.org/plugin/bukkit/ControlBans/27613" class="text-gray-500 hover:text-white transition">bStats</a>
-        </div>
-        <div class="text-gray-600 text-xs md:text-sm">
-            &copy; 2025 Tawny. Not affiliated with Mojang AB.
-        </div>
+    </section>
+
+    <footer class="py-8 bg-black text-center text-gray-600 text-sm">
+        &copy; 2025 Tawny. ControlBans is not affiliated with Mojang AB.
     </footer>
 
-    <script>
-        // Mobile Menu Toggle Logic
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        let isMenuOpen = false;
-
-        menuBtn.addEventListener('click', () => {
-            isMenuOpen = !isMenuOpen;
-            if (isMenuOpen) {
-                mobileMenu.classList.add('open');
-                menuBtn.innerHTML = '<i class="fa-solid fa-xmark text-2xl"></i>';
-            } else {
-                mobileMenu.classList.remove('open');
-                menuBtn.innerHTML = '<i class="fa-solid fa-bars text-2xl"></i>';
-            }
-        });
-    </script>
 </body>
-                                </html>
+</html>
