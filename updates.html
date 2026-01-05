@@ -37,15 +37,16 @@
 
         .tag {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.375rem;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
             font-weight: 700;
+            text-transform: uppercase;
         }
-        .tag-new { background: rgba(52, 152, 219, 0.15); color: #3498db; border: 1px solid rgba(52, 152, 219, 0.3); }
-        .tag-fix { background: rgba(230, 126, 34, 0.15); color: #e67e22; border: 1px solid rgba(230, 126, 34, 0.3); }
-        .tag-remove { background: rgba(231, 76, 60, 0.15); color: #e74c3c; border: 1px solid rgba(231, 76, 60, 0.3); }
-        .tag-perf { background: rgba(46, 204, 113, 0.15); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.3); }
+        .tag-added { background: rgba(46, 204, 113, 0.15); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.3); }
+        .tag-fixed { background: rgba(52, 152, 219, 0.15); color: #3498db; border: 1px solid rgba(52, 152, 219, 0.3); }
+        .tag-changed { background: rgba(155, 89, 182, 0.15); color: #9b59b6; border: 1px solid rgba(155, 89, 182, 0.3); }
+        .tag-removed { background: rgba(231, 76, 60, 0.15); color: #e74c3c; border: 1px solid rgba(231, 76, 60, 0.3); }
 
         .timeline-line {
             position: absolute;
@@ -53,7 +54,7 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: linear-gradient(180deg, #3498db 0%, rgba(52, 152, 219, 0.1) 100%);
+            background: linear-gradient(180deg, #3498db 0%, rgba(52, 152, 219, 0.05) 100%);
             z-index: 0;
         }
         @media (min-width: 768px) {
@@ -76,7 +77,7 @@
         }
     </script>
 </head>
-<body class="bg-dark text-gray-200">
+<body class="bg-dark text-gray-200 selection:bg-bans">
 
     <!-- Navbar -->
     <nav class="w-full py-6 px-6 md:px-12 flex justify-between items-center bg-darker/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-800">
@@ -95,11 +96,10 @@
     <!-- Header -->
     <header class="py-20 text-center bg-grid relative overflow-hidden">
         <div class="relative z-10">
-            <h1 class="text-5xl font-extrabold text-white mb-4">Update Log</h1>
-            <p class="text-gray-400 max-w-xl mx-auto">Track the evolution of ControlBans. We focus on stability, performance, and cross-server consistency.</p>
+            <h1 class="text-5xl font-extrabold text-white mb-4">Changelog</h1>
+            <p class="text-gray-400 max-w-2xl mx-auto px-4">Tracking our journey toward the most stable and modern punishment system. We listen to feedback and change gears when necessary to keep your server running smoothly.</p>
         </div>
-        <!-- Glow effect -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-bans opacity-10 blur-[100px] rounded-full pointer-events-none"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-bans/10 blur-[100px] rounded-full pointer-events-none"></div>
     </header>
 
     <!-- Timeline Section -->
@@ -107,99 +107,99 @@
         <div class="timeline-line"></div>
 
         <!-- Version 4.3 (Current) -->
-        <div class="relative z-10 mb-12 w-full md:w-1/2 md:ml-auto pl-12 md:pl-12">
-            <!-- Dot -->
-            <div class="absolute left-[19px] md:left-[-5px] top-6 w-3 h-3 bg-bans rounded-full shadow-[0_0_15px_#3498db]"></div>
+        <div class="relative z-10 mb-16 w-full md:w-[90%] mx-auto pl-12 md:pl-0">
+            <!-- Center Dot -->
+            <div class="hidden md:block absolute left-1/2 top-8 w-4 h-4 bg-bans rounded-full shadow-[0_0_15px_#3498db] -translate-x-1/2"></div>
             
-            <div class="glass-card p-6 rounded-2xl">
-                <div class="flex justify-between items-start mb-4">
+            <div class="glass-card p-8 rounded-3xl border-bans/20">
+                <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
                     <div>
-                        <h2 class="text-2xl font-bold text-white">v4.3 <span class="text-gray-500 text-lg font-light">The Stability Update</span></h2>
-                        <span class="text-gray-500 text-sm"><i class="fa-regular fa-calendar mr-2"></i>January 2026</span>
+                        <span class="text-bans font-bold tracking-widest text-sm uppercase mb-1 block">Current Release</span>
+                        <h2 class="text-3xl font-extrabold text-white">v4.3 — The Refocused Update</h2>
                     </div>
-                    <div class="bg-bans/10 text-bans px-3 py-1 rounded text-xs font-bold border border-bans/20">LATEST</div>
+                    <div class="bg-bans/10 text-bans px-4 py-1.5 rounded-full text-xs font-black border border-bans/30">JANUARY 2026</div>
                 </div>
                 
-                <p class="text-gray-400 mb-4 text-sm leading-relaxed">
-                    This update shifts focus entirely to performance and reliability. We have removed experimental features to ensure zero-latency punishments on large networks.
+                <p class="text-gray-400 mb-8 leading-relaxed">
+                    Following v4.2, we identified areas where the plugin needed better stability under heavy load. This update represents a "change of gears"—reverting experimental systems in favor of a rock-solid core with enhanced database performance and full localization support.
                 </p>
 
-                <div class="space-y-3">
-                    <div class="flex gap-3 items-start">
-                        <span class="tag tag-remove mt-1">REMOVED</span>
-                        <span class="text-gray-300 text-sm"><strong>AI Moderation:</strong> Removed Whisper/OpenAI integration. API dependencies caused unnecessary latency and setup complexity for server owners.</span>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                    <!-- Added -->
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-2 text-white font-bold text-sm uppercase tracking-wider">
+                            <i class="fa-solid fa-plus-circle text-green-500"></i> Added
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-400">
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-bans mt-0.5"></i> <strong>MongoDB Parity:</strong> NoSQL users now have access to 100% of the features available in SQL.</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-bans mt-0.5"></i> <strong>Full Localization:</strong> Every GUI title, item name, and lore line can now be translated in your language files.</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-bans mt-0.5"></i> <strong>Admin Tools:</strong> New built-in data export and import commands for easier backups.</li>
+                        </ul>
                     </div>
-                    <div class="flex gap-3 items-start">
-                        <span class="tag tag-perf mt-1">PERF</span>
-                        <span class="text-gray-300 text-sm"><strong>Database Optimization:</strong> Switched to HikariCP connection pooling optimization for MySQL and MariaDB.</span>
+
+                    <!-- Fixed -->
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-2 text-white font-bold text-sm uppercase tracking-wider">
+                            <i class="fa-solid fa-wrench text-blue-500"></i> Fixed
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-400">
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-bans mt-0.5"></i> <strong>Database Flooding:</strong> Optimized Alt-account menus to reduce database queries by over 75%.</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-bans mt-0.5"></i> <strong>Export Crashes:</strong> Large data exports now stream to disk instead of using system memory.</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-bans mt-0.5"></i> <strong>GUI Fragility:</strong> Fixed an issue where changing language could break the punishment menus.</li>
+                        </ul>
                     </div>
-                    <div class="flex gap-3 items-start">
-                        <span class="tag tag-new mt-1">NEW</span>
-                        <span class="text-gray-300 text-sm"><strong>Void Jail Logic:</strong> Improved teleportation handling to prevent "falling out of the world" loops on high-latency connections.</span>
-                    </div>
-                    <div class="flex gap-3 items-start">
-                        <span class="tag tag-fix mt-1">FIX</span>
-                        <span class="text-gray-300 text-sm">Fixed an issue where cross-server mute synchronization would delay by 1-2 seconds on BungeeCord.</span>
+
+                    <!-- Improved/Removed -->
+                    <div class="space-y-4 md:col-span-2 pt-4 border-t border-gray-800">
+                        <div class="flex items-center gap-2 text-white font-bold text-sm uppercase tracking-wider">
+                            <i class="fa-solid fa-sliders text-purple-500"></i> Improved & Changed
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-400">
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-bans mt-0.5"></i> <strong>Void Jail Security:</strong> Implemented a "snapshot" saving system to prevent data loss or player location corruption during server crashes.</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-bans mt-0.5"></i> <strong>Removed Experimental AI:</strong> After reviewing performance cracks in v4.2, we have removed AI-powered moderation to eliminate API latency and ensure punishments remain instant.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Version 4.2 -->
-        <div class="relative z-10 mb-12 w-full md:w-1/2 md:mr-auto pl-12 md:pl-0 md:pr-12 md:text-right">
-            <!-- Dot -->
-            <div class="absolute left-[19px] md:left-auto md:right-[-5px] top-6 w-3 h-3 bg-gray-600 rounded-full"></div>
+        <div class="relative z-10 mb-16 w-full md:w-[90%] mx-auto pl-12 md:pl-0">
+            <div class="hidden md:block absolute left-1/2 top-8 w-4 h-4 bg-gray-700 rounded-full -translate-x-1/2"></div>
             
-            <div class="glass-card p-6 rounded-2xl opacity-75 hover:opacity-100">
-                <div class="flex flex-col md:items-end mb-4">
-                    <h2 class="text-xl font-bold text-gray-300">v4.2 <span class="text-gray-600 font-light">Experimental</span></h2>
-                    <span class="text-gray-600 text-sm">Deprecated</span>
+            <div class="glass-card p-6 rounded-2xl opacity-80">
+                <div class="flex flex-wrap justify-between items-center gap-4 mb-4">
+                    <h2 class="text-xl font-bold text-gray-200">v4.2 — The Expansion Update</h2>
+                    <span class="text-gray-600 text-xs font-bold">DECEMBER 2025</span>
                 </div>
-                
-                <p class="text-gray-500 mb-4 text-sm">
-                    This version introduced AI features which have since been rolled back. Users on v4.2 are highly encouraged to update to v4.3 immediately for stability.
+                <p class="text-gray-500 text-sm leading-relaxed">
+                    This was a major update that pushed the boundaries of traditional moderation by introducing external integrations and experimental auditing features. While ambitious, real-world testing identified performance bottlenecks that led to the refocus found in v4.3.
                 </p>
-
-                <div class="space-y-2 flex flex-col md:items-end">
-                    <div class="flex gap-3 items-center flex-row-reverse md:flex-row">
-                        <span class="text-gray-400 text-sm">Introduced AI Voice Auditing (Reverted)</span>
-                        <span class="tag tag-new">FEATURE</span>
-                    </div>
-                </div>
             </div>
         </div>
 
         <!-- Version 4.1 -->
-        <div class="relative z-10 mb-12 w-full md:w-1/2 md:ml-auto pl-12 md:pl-12">
-            <!-- Dot -->
-            <div class="absolute left-[19px] md:left-[-5px] top-6 w-3 h-3 bg-gray-600 rounded-full"></div>
+        <div class="relative z-10 mb-12 w-full md:w-[90%] mx-auto pl-12 md:pl-0">
+            <div class="hidden md:block absolute left-1/2 top-8 w-4 h-4 bg-gray-800 rounded-full -translate-x-1/2"></div>
             
-            <div class="glass-card p-6 rounded-2xl">
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <h2 class="text-xl font-bold text-white">v4.1 <span class="text-gray-500 text-lg font-light">Web Panel Update</span></h2>
-                        <span class="text-gray-500 text-sm">December 2025</span>
-                    </div>
+            <div class="glass-card p-6 rounded-2xl opacity-60">
+                <div class="flex flex-wrap justify-between items-center gap-4 mb-4">
+                    <h2 class="text-xl font-bold text-gray-300">v4.1 — Web & Proxy Infrastructure</h2>
+                    <span class="text-gray-600 text-xs font-bold">NOVEMBER 2025</span>
                 </div>
-
-                <div class="space-y-3">
-                    <div class="flex gap-3 items-start">
-                        <span class="tag tag-new mt-1">NEW</span>
-                        <span class="text-gray-300 text-sm"><strong>Internal Web Server:</strong> Added a lightweight HTTP server to view bans at <code>server-ip:port</code> without needing external hosting.</span>
-                    </div>
-                    <div class="flex gap-3 items-start">
-                        <span class="tag tag-new mt-1">NEW</span>
-                        <span class="text-gray-300 text-sm"><strong>Redis Pub/Sub:</strong> Instant punishment propagation across proxies.</span>
-                    </div>
-                    <div class="flex gap-3 items-start">
-                        <span class="tag tag-fix mt-1">FIX</span>
-                        <span class="text-gray-300 text-sm">Resolved Folia scheduling incompatibility regarding async chat events.</span>
-                    </div>
-                </div>
+                <ul class="text-sm text-gray-500 space-y-2">
+                    <li><i class="fa-solid fa-circle-dot text-[8px] mr-2"></i> Introduced the built-in lightweight Web Panel.</li>
+                    <li><i class="fa-solid fa-circle-dot text-[8px] mr-2"></i> Added Redis Pub/Sub for sub-millisecond cross-server syncing.</li>
+                    <li><i class="fa-solid fa-circle-dot text-[8px] mr-2"></i> Initial Folia native support implementation.</li>
+                </ul>
             </div>
         </div>
 
     </section>
+
+    <footer class="py-12 bg-darker text-center text-gray-600 text-xs font-mono uppercase tracking-widest">
+        &copy; 2025-2026 ControlBans Moderation Suite
+    </footer>
 
 </body>
 </html>
