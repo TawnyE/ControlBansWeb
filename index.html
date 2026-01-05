@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ControlBans | The Next Gen Solution</title>
-    <meta name="description" content="AI Voice Moderation, Web Panel, and Cross-Server punishments for Minecraft 1.16 - 1.21+.">
+    <meta name="description" content="Web Panel, Cross-Server punishments, and Void Jail for Minecraft 1.16 - 1.21+.">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -83,6 +83,7 @@
         </div>
 
         <div class="flex gap-6 items-center">
+            <a href="updates.html" class="text-gray-400 hover:text-white transition font-semibold">Updates</a>
             <a href="docs.html" class="text-gray-400 hover:text-white transition font-semibold">Docs</a>
             <a href="https://discord.gg/xRchyJFkBG" target="_blank" class="text-gray-400 hover:text-[#5865F2] transition"><i class="fa-brands fa-discord text-xl"></i></a>
         </div>
@@ -106,8 +107,8 @@
             </h1>
             
             <p class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto font-light mt-4">
-                Stop relying on plugins from 2015. <br>
-                <span class="text-white font-medium">ControlBans</span> brings your server into the modern era.
+                Stop relying on outdated plugins. <br>
+                <span class="text-white font-medium">ControlBans</span> brings stability and modern features to your server.
             </p>
         </div>
     </header>
@@ -140,12 +141,6 @@
                 <span class="font-bold text-lg text-gray-300 group-hover:text-white">Velocity & Bungee</span>
             </div>
 
-            <!-- AI -->
-            <div class="flex items-center gap-3 group cursor-default">
-                <i class="fa-solid fa-microchip text-2xl text-purple-500 group-hover:text-purple-400 transition"></i>
-                <span class="font-bold text-lg text-gray-300 group-hover:text-white">AI Powered</span>
-            </div>
-
         </div>
     </div>
 
@@ -159,28 +154,27 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
-                <!-- Feature 1: AI -->
+                <!-- Feature 1: Sync -->
                 <div class="glass-card p-8 rounded-2xl md:col-span-2 flex flex-col md:flex-row gap-8 items-center">
                     <div class="flex-1 space-y-4">
                         <div class="inline-block p-3 rounded-lg bg-bans/10 text-bans mb-2">
-                            <i class="fa-solid fa-ear-listen text-2xl"></i>
+                            <i class="fa-solid fa-rotate text-2xl"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-white">It listens, so you don't have to.</h3>
+                        <h3 class="text-2xl font-bold text-white">Instant Network Sync.</h3>
                         <p class="text-gray-400 leading-relaxed">
-                            Most servers disable Voice Chat because it's impossible to moderate. We fixed that.
-                            ControlBans uses <strong>Whisper v3 AI</strong> to transcribe and analyze voice chat for toxicity in real-time.
+                            Managing a network? ControlBans utilizes Redis Pub/Sub to instantly propagate bans, mutes, and warnings across every server in your network. No lag, no database polling delays.
                         </p>
                         <ul class="text-sm text-gray-500 space-y-2 font-mono">
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i>Distinguishes banter vs abuse</li>
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i>Fully Asynchronous</li>
+                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i>BungeeCord & Velocity Support</li>
+                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i>Sub-millisecond propagation</li>
                         </ul>
                     </div>
                     <div class="flex-1 w-full bg-black/40 rounded-xl border border-gray-800 p-4 font-mono text-sm">
-                        <div class="text-gray-600 mb-2">// Server Console Log</div>
-                        <div class="mb-2"><span class="text-blue-400">[Voice]</span> <span class="text-yellow-500">Player1</span>: "This server is awesome!"</div>
-                        <div class="text-green-500 mb-4">-> AI Verdict: SAFE (99%)</div>
-                        <div class="mb-2"><span class="text-blue-400">[Voice]</span> <span class="text-yellow-500">TrollUser</span>: [Toxic Speech Detected...]</div>
-                        <div class="text-red-500">-> AI Verdict: TOXIC (98%) -> Auto-Muting...</div>
+                        <div class="text-gray-600 mb-2">// Proxy Logs</div>
+                        <div class="mb-2"><span class="text-blue-400">[Lobby-1]</span> Admin issued /ban TrollUser</div>
+                        <div class="text-green-500 mb-4">-> Redis Pub/Sub Message Sent</div>
+                        <div class="mb-2"><span class="text-orange-400">[Survival]</span> Received Ban Packet</div>
+                        <div class="text-red-500">-> TrollUser disconnected instantly.</div>
                     </div>
                 </div>
 
