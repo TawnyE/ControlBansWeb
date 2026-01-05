@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Updates | ControlBans</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Outfit', sans-serif; }
+        .bg-grid {
+            background-image: 
+                linear-gradient(rgba(52, 152, 219, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(52, 152, 219, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        .glass-card {
+            background: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(52, 152, 219, 0.3);
+            transform: translateY(-2px);
+            background: rgba(25, 25, 35, 0.8);
+        }
+
+        .tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            font-weight: 700;
+        }
+        .tag-new { background: rgba(52, 152, 219, 0.15); color: #3498db; border: 1px solid rgba(52, 152, 219, 0.3); }
+        .tag-fix { background: rgba(230, 126, 34, 0.15); color: #e67e22; border: 1px solid rgba(230, 126, 34, 0.3); }
+        .tag-remove { background: rgba(231, 76, 60, 0.15); color: #e74c3c; border: 1px solid rgba(231, 76, 60, 0.3); }
+        .tag-perf { background: rgba(46, 204, 113, 0.15); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.3); }
+
+        .timeline-line {
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #3498db 0%, rgba(52, 152, 219, 0.1) 100%);
+            z-index: 0;
+        }
+        @media (min-width: 768px) {
+            .timeline-line { left: 50%; transform: translateX(-50%); }
+        }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        control: '#e74c3c',
+                        bans: '#3498db',
+                        dark: '#0a0a0a',
+                        darker: '#050505'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark text-gray-200">
+
+    <!-- Navbar -->
+    <nav class="w-full py-6 px-6 md:px-12 flex justify-between items-center bg-darker/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-800">
+        <a href="index.html" class="text-2xl font-bold tracking-tighter hover:opacity-80 transition">
+            <span class="text-white">Control</span><span class="text-bans">Bans</span>
+        </a>
+
+        <div class="flex gap-6 items-center">
+            <a href="index.html" class="text-gray-400 hover:text-white transition font-semibold">Home</a>
+            <a href="updates.html" class="text-white transition font-semibold">Updates</a>
+            <a href="docs.html" class="text-gray-400 hover:text-white transition font-semibold">Docs</a>
+            <a href="https://discord.gg/xRchyJFkBG" target="_blank" class="text-gray-400 hover:text-[#5865F2] transition"><i class="fa-brands fa-discord text-xl"></i></a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="py-20 text-center bg-grid relative overflow-hidden">
+        <div class="relative z-10">
+            <h1 class="text-5xl font-extrabold text-white mb-4">Update Log</h1>
+            <p class="text-gray-400 max-w-xl mx-auto">Track the evolution of ControlBans. We focus on stability, performance, and cross-server consistency.</p>
+        </div>
+        <!-- Glow effect -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-bans opacity-10 blur-[100px] rounded-full pointer-events-none"></div>
+    </header>
+
+    <!-- Timeline Section -->
+    <section class="container mx-auto px-4 pb-24 max-w-5xl relative">
+        <div class="timeline-line"></div>
+
+        <!-- Version 4.3 (Current) -->
+        <div class="relative z-10 mb-12 w-full md:w-1/2 md:ml-auto pl-12 md:pl-12">
+            <!-- Dot -->
+            <div class="absolute left-[19px] md:left-[-5px] top-6 w-3 h-3 bg-bans rounded-full shadow-[0_0_15px_#3498db]"></div>
+            
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white">v4.3 <span class="text-gray-500 text-lg font-light">The Stability Update</span></h2>
+                        <span class="text-gray-500 text-sm"><i class="fa-regular fa-calendar mr-2"></i>January 2026</span>
+                    </div>
+                    <div class="bg-bans/10 text-bans px-3 py-1 rounded text-xs font-bold border border-bans/20">LATEST</div>
+                </div>
+                
+                <p class="text-gray-400 mb-4 text-sm leading-relaxed">
+                    This update shifts focus entirely to performance and reliability. We have removed experimental features to ensure zero-latency punishments on large networks.
+                </p>
+
+                <div class="space-y-3">
+                    <div class="flex gap-3 items-start">
+                        <span class="tag tag-remove mt-1">REMOVED</span>
+                        <span class="text-gray-300 text-sm"><strong>AI Moderation:</strong> Removed Whisper/OpenAI integration. API dependencies caused unnecessary latency and setup complexity for server owners.</span>
+                    </div>
+                    <div class="flex gap-3 items-start">
+                        <span class="tag tag-perf mt-1">PERF</span>
+                        <span class="text-gray-300 text-sm"><strong>Database Optimization:</strong> Switched to HikariCP connection pooling optimization for MySQL and MariaDB.</span>
+                    </div>
+                    <div class="flex gap-3 items-start">
+                        <span class="tag tag-new mt-1">NEW</span>
+                        <span class="text-gray-300 text-sm"><strong>Void Jail Logic:</strong> Improved teleportation handling to prevent "falling out of the world" loops on high-latency connections.</span>
+                    </div>
+                    <div class="flex gap-3 items-start">
+                        <span class="tag tag-fix mt-1">FIX</span>
+                        <span class="text-gray-300 text-sm">Fixed an issue where cross-server mute synchronization would delay by 1-2 seconds on BungeeCord.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Version 4.2 -->
+        <div class="relative z-10 mb-12 w-full md:w-1/2 md:mr-auto pl-12 md:pl-0 md:pr-12 md:text-right">
+            <!-- Dot -->
+            <div class="absolute left-[19px] md:left-auto md:right-[-5px] top-6 w-3 h-3 bg-gray-600 rounded-full"></div>
+            
+            <div class="glass-card p-6 rounded-2xl opacity-75 hover:opacity-100">
+                <div class="flex flex-col md:items-end mb-4">
+                    <h2 class="text-xl font-bold text-gray-300">v4.2 <span class="text-gray-600 font-light">Experimental</span></h2>
+                    <span class="text-gray-600 text-sm">Deprecated</span>
+                </div>
+                
+                <p class="text-gray-500 mb-4 text-sm">
+                    This version introduced AI features which have since been rolled back. Users on v4.2 are highly encouraged to update to v4.3 immediately for stability.
+                </p>
+
+                <div class="space-y-2 flex flex-col md:items-end">
+                    <div class="flex gap-3 items-center flex-row-reverse md:flex-row">
+                        <span class="text-gray-400 text-sm">Introduced AI Voice Auditing (Reverted)</span>
+                        <span class="tag tag-new">FEATURE</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Version 4.1 -->
+        <div class="relative z-10 mb-12 w-full md:w-1/2 md:ml-auto pl-12 md:pl-12">
+            <!-- Dot -->
+            <div class="absolute left-[19px] md:left-[-5px] top-6 w-3 h-3 bg-gray-600 rounded-full"></div>
+            
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-white">v4.1 <span class="text-gray-500 text-lg font-light">Web Panel Update</span></h2>
+                        <span class="text-gray-500 text-sm">December 2025</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="flex gap-3 items-start">
+                        <span class="tag tag-new mt-1">NEW</span>
+                        <span class="text-gray-300 text-sm"><strong>Internal Web Server:</strong> Added a lightweight HTTP server to view bans at <code>server-ip:port</code> without needing external hosting.</span>
+                    </div>
+                    <div class="flex gap-3 items-start">
+                        <span class="tag tag-new mt-1">NEW</span>
+                        <span class="text-gray-300 text-sm"><strong>Redis Pub/Sub:</strong> Instant punishment propagation across proxies.</span>
+                    </div>
+                    <div class="flex gap-3 items-start">
+                        <span class="tag tag-fix mt-1">FIX</span>
+                        <span class="text-gray-300 text-sm">Resolved Folia scheduling incompatibility regarding async chat events.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</body>
+</html>
