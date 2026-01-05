@@ -86,6 +86,7 @@
                 <input type="text" id="globalSearch" placeholder="Search docs..." 
                     class="bg-gray-900 border border-gray-700 rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:border-bans w-64 transition placeholder-gray-600 text-gray-300">
             </div>
+            <a href="updates.html" class="text-sm font-semibold text-gray-400 hover:text-white transition hidden md:block">Updates</a>
             <a href="index.html" class="text-sm font-semibold text-gray-400 hover:text-white transition hidden md:block">Home</a>
         </div>
     </nav>
@@ -133,7 +134,6 @@
                 category: "Configuration",
                 items: [
                     { id: "config", label: "Config.yml", icon: "fa-solid fa-gears" },
-                    { id: "ai-config", label: "AI Settings", icon: "fa-solid fa-microchip" },
                     { id: "database", label: "Database", icon: "fa-solid fa-database" },
                     { id: "messages", label: "Messages", icon: "fa-solid fa-language" }
                 ]
@@ -152,18 +152,18 @@
         const pages = {
             intro: `
                 <h1 class="text-3xl md:text-4xl font-bold text-white mb-6">Introduction</h1>
-                <p class="text-lg mb-6 leading-relaxed">ControlBans is a next-generation moderation suite designed for modern Minecraft networks (1.16 - 1.21+). It features fully asynchronous architecture, AI-powered moderation, and cross-server synchronization.</p>
+                <p class="text-lg mb-6 leading-relaxed">ControlBans is a next-generation moderation suite designed for modern Minecraft networks (1.16 - 1.21+). It features fully asynchronous architecture, strict database handling, and cross-server synchronization.</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div class="bg-gray-900/50 border border-gray-800 p-6 rounded-xl hover:border-bans/30 transition">
-                        <i class="fa-solid fa-microchip text-3xl text-purple-500 mb-4"></i>
-                        <h3 class="text-xl font-bold text-white mb-2">AI Auditing</h3>
-                        <p class="text-sm text-gray-400">Includes support for Groq, OpenAI, and Anthropic to detect toxicity in Chat and Voice automatically.</p>
-                    </div>
                     <div class="bg-gray-900/50 border border-gray-800 p-6 rounded-xl hover:border-bans/30 transition">
                         <i class="fa-solid fa-server text-3xl text-red-500 mb-4"></i>
                         <h3 class="text-xl font-bold text-white mb-2">Redis Sync</h3>
                         <p class="text-sm text-gray-400">Instant punishment synchronization across BungeeCord and Velocity proxies using Pub/Sub.</p>
+                    </div>
+                    <div class="bg-gray-900/50 border border-gray-800 p-6 rounded-xl hover:border-bans/30 transition">
+                        <i class="fa-solid fa-database text-3xl text-green-500 mb-4"></i>
+                        <h3 class="text-xl font-bold text-white mb-2">Database Support</h3>
+                        <p class="text-sm text-gray-400">Native support for SQLite, MySQL, MariaDB, PostgreSQL, and even NoSQL MongoDB.</p>
                     </div>
                     <div class="bg-gray-900/50 border border-gray-800 p-6 rounded-xl hover:border-bans/30 transition">
                         <i class="fa-solid fa-ban text-3xl text-orange-500 mb-4"></i>
@@ -194,7 +194,6 @@
                         <ol class="list-decimal list-inside space-y-4 text-gray-300">
                             <li>Download <code class="bg-gray-800 px-2 py-1 rounded text-bans">ControlBans.jar</code> from the releases page.</li>
                             <li>Place the jar in your server's <code class="bg-gray-800 px-2 py-1 rounded">/plugins/</code> folder.</li>
-                            <li><strong>Proxy Setup (Optional):</strong> If running a network, place <code class="bg-gray-800 px-2 py-1 rounded">ControlBans-Bungee.jar</code> or <code class="bg-gray-800 px-2 py-1 rounded">ControlBans-Velocity.jar</code> in your proxy's plugins folder.</li>
                             <li>Restart your server to generate config files.</li>
                             <li>Configure <code class="bg-gray-800 px-2 py-1 rounded">config.yml</code> and restart again.</li>
                         </ol>
@@ -304,37 +303,6 @@
                         </div>
                     </div>
                 </div>
-            `,
-            "ai-config": `
-                <h1 class="text-3xl md:text-4xl font-bold text-white mb-6">AI Configuration</h1>
-                <p class="mb-4">ControlBans supports text and voice moderation via Groq (Free/Fast), OpenAI, or Anthropic.</p>
-                
-                <div class="glass-panel p-6 rounded-xl border border-purple-500/30 mb-6">
-                    <h3 class="text-lg font-bold text-white mb-2">Recommended Setup</h3>
-                    <p class="text-sm text-gray-400">We recommend using <strong>Groq</strong> with the <code class="text-purple-400">llama-3.1-8b-instant</code> model. It is extremely fast and currently free, making it ideal for real-time chat and voice transcription.</p>
-                </div>
-
-                <div class="mb-2 text-sm uppercase text-gray-500 font-bold">plugins/ControlBans/ai-config.yml</div>
-                <pre><code class="language-yaml">ai-moderation:
-  enabled: true
-  
-  text:
-    providers:
-      groq:
-        enabled: true
-        api-key: "gsk_..." # Get from console.groq.com
-        models:
-          - "llama-3.1-8b-instant"
-    
-    # Delay allows the AI to see context (multiple messages)
-    delay:
-      min: 10
-      max: 30
-
-  # Voice Moderation (Requires Simple Voice Chat)
-  voice:
-    use-same-as-text: true
-    extra-leniency: 0.30 # Make AI more forgiving on voice transcriptions</code></pre>
             `,
             config: `
                 <h1 class="text-3xl md:text-4xl font-bold text-white mb-6">Main Configuration</h1>
