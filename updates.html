@@ -21,11 +21,21 @@
                         radial-gradient(at 0% 50%, hsla(225,39%,30%,0.4) 0, transparent 50%);
             z-index: -2;
         }
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: -1;
+        }
         .glass-card {
             background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            background: rgba(25, 25, 35, 0.8);
         }
         .timeline-line {
             position: absolute;
@@ -44,33 +54,41 @@
         .tag-perf { background: rgba(234, 179, 8, 0.15); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.3); }
         .tag-added { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
         .tag-removed { background: rgba(100, 116, 139, 0.15); color: #94a3b8; border: 1px solid rgba(100, 116, 139, 0.3); }
+        .tag-security { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
     </style>
     
     <script>
         tailwind.config = { theme: { extend: { colors: { bans: '#3b82f6' } } } }
     </script>
 </head>
-<body class="selection:bg-bans selection:text-white">
+<body class="selection:bg-bans selection:text-white overflow-x-hidden">
 
     <div class="mesh-bg"></div>
+    <div class="noise-overlay"></div>
 
     <nav class="w-full py-6 px-6 md:px-12 flex justify-between items-center sticky top-0 z-50 backdrop-blur-md border-b border-white/5 bg-black/20">
-        <a href="index.html" class="text-xl font-bold tracking-tighter hover:text-bans transition">ControlBans</a>
-        <div class="flex gap-6 text-sm font-medium">
-            <a href="index.html" class="text-gray-400 hover:text-white transition">Home</a>
+        <a href="index.html" class="text-xl font-bold tracking-tighter hover:opacity-80 transition group">
+            <span class="text-white group-hover:text-gray-200 transition">Control</span><span class="text-bans group-hover:text-blue-400 transition">Bans</span>
+        </a>
+        <div class="flex gap-6 text-sm font-medium items-center">
+            <a href="index.html" class="text-gray-400 hover:text-white transition hidden md:block">Home</a>
             <a href="docs.html" class="text-gray-400 hover:text-white transition">Docs</a>
+            <a href="https://discord.com/invite/AnQvddTZDg" target="_blank" class="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full transition flex items-center gap-2 group">
+                <i class="fa-brands fa-discord text-[#5865F2] group-hover:text-white transition"></i> 
+                <span class="hidden md:inline">Support</span>
+            </a>
         </div>
     </nav>
 
     <header class="py-20 text-center relative">
         <h1 class="text-5xl font-black text-white mb-4">Changelog</h1>
-        <p class="text-gray-400">Tracking our journey toward stability.</p>
+        <p class="text-gray-400">Tracking our journey toward the perfect moderation suite.</p>
     </header>
 
     <section class="container mx-auto px-4 pb-24 max-w-5xl relative">
         <div class="timeline-line"></div>
 
-        <!-- VERSION 4.7 (NEW) -->
+        <!-- VERSION 4.8 (CURRENT) -->
         <div class="relative z-10 mb-20 w-full md:w-[90%] mx-auto pl-12 md:pl-0">
             <div class="hidden md:block absolute left-1/2 top-8 w-4 h-4 bg-bans rounded-full shadow-[0_0_20px_#3b82f6] -translate-x-1/2 ring-4 ring-black"></div>
             
@@ -78,59 +96,76 @@
                 <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
                     <div>
                         <span class="text-bans font-mono text-xs font-bold uppercase tracking-widest mb-1 block">Current Release</span>
-                        <h2 class="text-3xl font-bold text-white">v4.7 — The "Silent Killer" Update</h2>
+                        <h2 class="text-3xl font-bold text-white">v4.8 — Troll Control & Security</h2>
                     </div>
-                    <div class="bg-bans/10 text-bans px-4 py-1.5 rounded-full text-xs font-bold border border-bans/20">MARCH 6, 2026</div>
+                    <div class="bg-bans/10 text-bans px-4 py-1.5 rounded-full text-xs font-bold border border-bans/20">MARCH 2026</div>
                 </div>
                 
                 <p class="text-gray-400 mb-8 leading-relaxed border-b border-white/5 pb-6">
-                    After analyzing performance data from high-load networks (50k+ players), we identified and neutralized several "silent killers"—issues that don't crash a server immediately but strangle performance over time. This update makes ControlBans significantly more scalable.
+                    This update introduces highly requested enterprise-grade moderation tools and automated background maintenance to keep your server safe, clean, and blazingly fast.
                 </p>
 
+                <div class="space-y-6">
+                    <!-- Shadow Mute -->
+                    <div class="flex gap-4 items-start">
+                        <span class="tag tag-added mt-1 shrink-0">ADDED</span>
+                        <div>
+                            <strong class="text-white block text-lg mb-1">Shadow Mutes (Hellban)</strong>
+                            <p class="text-sm text-gray-400">The ultimate anti-troll weapon. Shadow-muted players can still type in chat and see their own messages, but their messages are completely hidden from everyone else. They are silently ignored without realizing they have been punished.</p>
+                        </div>
+                    </div>
+
+                    <!-- Staff Rollbacks -->
+                    <div class="flex gap-4 items-start">
+                        <span class="tag tag-security mt-1 shrink-0">SECURITY</span>
+                        <div>
+                            <strong class="text-white block text-lg mb-1">Staff Action Rollbacks</strong>
+                            <p class="text-sm text-gray-400">Protect your network from compromised or rogue staff accounts. Admins can instantly revert every action a specific staff member took within a given timeframe (e.g., <code>/cb rollback RogueMod 1h</code>).</p>
+                        </div>
+                    </div>
+
+                    <!-- AutoMod -->
+                    <div class="flex gap-4 items-start">
+                        <span class="tag tag-added mt-1 shrink-0">ADDED</span>
+                        <div>
+                            <strong class="text-white block text-lg mb-1">Next-Gen AutoMod</strong>
+                            <p class="text-sm text-gray-400">Added highly optimized, async-driven <strong>Anti-Spam</strong> (prevents message flooding and identical duplicate messages) and <strong>Anti-Caps</strong> (automatically converts ALL CAPS messages into normal lowercase text, reducing player friction).</p>
+                        </div>
+                    </div>
+
+                    <!-- DB Janitor -->
+                    <div class="flex gap-4 items-start">
+                        <span class="tag tag-perf mt-1 shrink-0">PERF</span>
+                        <div>
+                            <strong class="text-white block text-lg mb-1">Automated Database Janitor</strong>
+                            <p class="text-sm text-gray-400">Added a silent background thread that safely purges temporary punishments that expired more than 30 days ago. This prevents long-term database bloat and ensures queries stay lightning fast over the years.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VERSION 4.7 -->
+        <div class="relative z-10 mb-16 w-full md:w-[90%] mx-auto pl-12 md:pl-0 opacity-80 hover:opacity-100 transition duration-500">
+            <div class="hidden md:block absolute left-1/2 top-8 w-3 h-3 bg-gray-600 rounded-full -translate-x-1/2 ring-4 ring-black"></div>
+            
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="flex flex-wrap justify-between items-center gap-4 mb-4 border-b border-white/5 pb-4">
+                    <h2 class="text-xl font-bold text-gray-200">v4.7 — The "Silent Killer" Fix</h2>
+                    <span class="text-gray-500 text-xs font-bold">EARLY MARCH 2026</span>
+                </div>
                 <div class="space-y-4">
-                    <!-- Critical Fixes -->
                     <div class="flex gap-4 items-start">
-                        <span class="tag tag-critical mt-1">CRITICAL</span>
-                        <div>
-                            <strong class="text-white block">Import Throttling</strong>
-                            <p class="text-sm text-gray-400">Rewrote the ImportService. Importing massive databases (Essentials/LiteBans) no longer floods the thread pool. The system now intelligently throttles file reads, preventing OOM (Out of Memory) crashes during migration.</p>
-                        </div>
+                        <span class="tag tag-critical mt-0.5 shrink-0">CRITICAL</span>
+                        <p class="text-sm text-gray-400"><strong>Import Throttling:</strong> Rewrote the ImportService. Importing massive databases no longer floods the thread pool, preventing OOM crashes.</p>
                     </div>
-
-                    <!-- Performance -->
                     <div class="flex gap-4 items-start">
-                        <span class="tag tag-perf mt-1">PERF</span>
-                        <div>
-                            <strong class="text-white block">Async SkinBan I/O</strong>
-                            <p class="text-sm text-gray-400">SkinBan file operations are now 100% asynchronous. Large ban lists will no longer freeze the main thread during saves or loads.</p>
-                        </div>
+                        <span class="tag tag-perf mt-0.5 shrink-0">PERF</span>
+                        <p class="text-sm text-gray-400"><strong>DB Indexing & Async I/O:</strong> Added missing SQL indexes to fix tab-complete lag spikes. Made SkinBan saving 100% asynchronous.</p>
                     </div>
-
-                    <!-- Removed Feature -->
                     <div class="flex gap-4 items-start">
-                        <span class="tag tag-removed mt-1">REMOVED</span>
-                        <div>
-                            <strong class="text-white block">Web Panel</strong>
-                            <p class="text-sm text-gray-400">The internal web server caused stability issues on some network configurations. It has been removed. We have shifted focus to improving the <strong>Voice Chat Muting</strong> integration instead.</p>
-                        </div>
-                    </div>
-
-                    <!-- DB Optimization -->
-                    <div class="flex gap-4 items-start">
-                        <span class="tag tag-perf mt-1">DB</span>
-                        <div>
-                            <strong class="text-white block">History Indexing</strong>
-                            <p class="text-sm text-gray-400">Fixed a major SQL bottleneck by adding missing indexes to the History table. Tab-completing commands (`/ban &lt;tab&gt;`) no longer triggers a full table scan, preventing database lockups under load.</p>
-                        </div>
-                    </div>
-
-                    <!-- Fixes -->
-                    <div class="flex gap-4 items-start">
-                        <span class="tag tag-added mt-1">FIX</span>
-                        <div>
-                            <strong class="text-white block">Memory Leak & Soft-Depends</strong>
-                            <p class="text-sm text-gray-400">Fixed a leak in ChatInputListener where disconnected players remained in memory. Hardened VoiceChat integration to prevent crashes on servers with outdated API versions.</p>
-                        </div>
+                        <span class="tag tag-removed mt-0.5 shrink-0">REMOVED</span>
+                        <p class="text-sm text-gray-400"><strong>Web Panel:</strong> Removed internal web server to prioritize Voice Chat integration and network stability.</p>
                     </div>
                 </div>
             </div>
@@ -171,7 +206,7 @@
     </section>
 
     <footer class="py-12 text-center text-gray-700 text-xs font-mono">
-        &copy; 2026 ControlBans
+        &copy; 2026 ControlBans Moderation Suite
     </footer>
 
 </body>
